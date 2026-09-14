@@ -514,6 +514,31 @@
     return 'var(--good)';
   }
 
+  // Affiche la cle complete quand le serveur peut la redonner (LICENSE_ENC_KEY
+  // configure + licence emise apres cette mise a jour), avec un bouton copier ;
+  // sinon retombe sur le prefixe, avec une note expliquant pourquoi.
+  var keyCopyN = 0;
+  function keyCellHtml(lic){
+    if (lic.key_full) {
+      var id = 'kcp-' + (++keyCopyN);
+      return '<span class="mono">' + escapeHtml(lic.key_full) + '</span> ' +
+             '<button type="button" class="btn btn-ghost btn-sm" data-copy-key="' + escapeHtml(lic.key_full) + '" id="' + id + '">Copier</button>';
+    }
+    return '<span class="mono" title="Clé complète non disponible (licence émise avant l\'activation du chiffrement, ou LICENSE_ENC_KEY absente sur le serveur)">' +
+           escapeHtml(lic.key_prefix) + '…</span>';
+  }
+  function wireKeyCopyButtons(root){
+    root.querySelectorAll('[data-copy-key]').forEach(function(b){
+      b.addEventListener('click', function(){
+        var val = this.getAttribute('data-copy-key');
+        navigator.clipboard && navigator.clipboard.writeText(val).then(function(){
+          var old = b.textContent; b.textContent = 'Copié !';
+          setTimeout(function(){ b.textContent = old; }, 1500);
+        });
+      });
+    });
+  }
+
   // ---- revocation / liberation, partagees entre les formulaires et les
   // boutons places directement sur une ligne d'historique ou de recherche ----
   async function revokeLicense(target, label){
@@ -672,7 +697,7 @@
         }).join('');
         var label = lic.customer_name || lic.email || (lic.key_prefix + '…');
         card.innerHTML =
-          '<div class="lic-head"><span class="key mono" style="font-size:14px;">' + escapeHtml(lic.key_prefix) + '…</span>' + statusBadge(lic.status) + '</div>' +
+          '<div class="lic-head"><span class="key mono" style="font-size:14px;">' + keyCellHtml(lic) + '</span>' + statusBadge(lic.status) + '</div>' +
           '<div class="kv">' +
             '<div><span class="k">Client</span><span class="v">' + escapeHtml(lic.customer_name || '—') + '</span></div>' +
             '<div><span class="k">Email</span><span class="v" style="font-weight:500;">' + escapeHtml(lic.email || '—') + '</span></div>' +
@@ -700,6 +725,7 @@
             document.getElementById('lookup-submit').click();
           } catch (e) { log('Échec de libération des postes : ' + e.message, false); alert(e.message); }
         });
+        wireKeyCopyButtons(card);
         resultBox.appendChild(card);
       });
       resultBox.style.display = 'flex';
@@ -777,7 +803,7 @@
       '</div>';
       return '<tr>' +
         '<td>' + who + '</td>' +
-        '<td class="mono nowrap">' + escapeHtml(lic.key_prefix) + '…</td>' +
+        '<td class="nowrap">' + keyCellHtml(lic) + '</td>' +
         '<td>' + statusBadge(lic.status) + '</td>' +
         '<td class="nowrap">' + escapeHtml(lic.billing_period || '—') + '</td>' +
         '<td class="nowrap">' + (lic.seats_used ?? '—') + ' / ' + (lic.seats_max ?? '—') + '</td>' +
@@ -788,6 +814,7 @@
       '</tr>';
     }).join('');
 
+    wireKeyCopyButtons(historyBody);
     historyBody.querySelectorAll('[data-hist-act]').forEach(function(b){
       b.addEventListener('click', async function(){
         var id = this.getAttribute('data-id');
