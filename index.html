@@ -188,6 +188,9 @@
   table.acts th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);font-weight:600;padding:4px 8px 6px 0;border-bottom:1px solid var(--border);}
   table.acts td{padding:6px 8px 6px 0;border-bottom:1px solid var(--border);}
   .acts-wrap{overflow-x:auto;}
+  .btn-sm{padding:5px 10px;font-size:12.5px;}
+  .row-actions{display:flex;gap:6px;flex-wrap:nowrap;white-space:nowrap;}
+  table.acts td.nowrap, table.acts th.nowrap{white-space:nowrap;}
 
   .error-box{background:var(--danger-soft);color:var(--danger);border:1px solid var(--danger);border-radius:8px;padding:10px 13px;font-size:13.5px;display:none;}
   .error-box.show{display:block;}
@@ -240,6 +243,7 @@
 
   <nav class="tabs" role="tablist" aria-label="Actions">
     <button role="tab" aria-selected="true" data-panel="issue">Émettre une licence</button>
+    <button role="tab" aria-selected="false" data-panel="history">Historique</button>
     <button role="tab" aria-selected="false" data-panel="lookup">Rechercher</button>
     <button role="tab" aria-selected="false" data-panel="revoke">Révoquer</button>
     <button role="tab" aria-selected="false" data-panel="release">Libérer les postes</button>
@@ -287,6 +291,58 @@
         <div class="kv">
           <div><span class="k">Postes</span><span class="v" id="issue-seats-out">—</span></div>
           <div><span class="k">Fin de période</span><span class="v" id="issue-end-out">—</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HISTORY -->
+    <div class="panel" id="panel-history">
+      <h2>Historique des licences</h2>
+      <p class="hint">Toutes les licences émises : quelle clé, pour quel email et quel nom, combien de temps il reste.</p>
+      <div class="actions-row" style="align-items:end;">
+        <div class="field" style="flex:1 1 220px;">
+          <label for="history-search">Recherche (nom, email, clé)</label>
+          <input id="history-search" type="text" placeholder="ex : Dupont ou client@exemple.com">
+        </div>
+        <div class="field" style="flex:0 0 170px;">
+          <label for="history-status">Statut</label>
+          <select id="history-status">
+            <option value="all">Tous</option>
+            <option value="active">Actif</option>
+            <option value="trialing">Essai</option>
+            <option value="past_due">Impayé</option>
+            <option value="canceled">Résilié</option>
+            <option value="revoked">Révoqué</option>
+          </select>
+        </div>
+        <button class="btn btn-ghost" type="button" id="history-refresh">Rafraîchir</button>
+      </div>
+      <div class="error-box" id="history-error"></div>
+      <div class="acts-wrap">
+        <table class="acts" id="history-table">
+          <thead>
+            <tr>
+              <th>Client</th>
+              <th>Clé</th>
+              <th>Statut</th>
+              <th>Formule</th>
+              <th>Postes</th>
+              <th>Fin de période</th>
+              <th>Restant</th>
+              <th>Créée le</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="history-body">
+            <tr><td colspan="9" class="hint" style="padding:14px 0;">Chargement…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="actions-row" style="justify-content:space-between;">
+        <span class="hint" id="history-count">—</span>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-ghost" type="button" id="history-prev">◀ Précédent</button>
+          <button class="btn btn-ghost" type="button" id="history-next">Suivant ▶</button>
         </div>
       </div>
     </div>
@@ -430,6 +486,48 @@
     els.statusPill.innerHTML = '<span class="dot"></span>' + text;
   }
 
+  function escapeHtml(s){
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  // Jours restants avant la fin de periode payee (peut etre negatif si expiree).
+  function daysRemaining(endIso){
+    if (!endIso) return null;
+    var end = new Date(endIso).getTime();
+    if (isNaN(end)) return null;
+    return Math.ceil((end - Date.now()) / 86400000);
+  }
+  function remainingLabel(endIso){
+    var d = daysRemaining(endIso);
+    if (d === null) return '—';
+    if (d < 0) return 'expirée';
+    if (d === 0) return 'dernier jour';
+    return d + ' j';
+  }
+  function remainingColor(endIso){
+    var d = daysRemaining(endIso);
+    if (d === null) return 'var(--ink-soft)';
+    if (d < 0) return 'var(--danger)';
+    if (d <= 14) return 'var(--warn)';
+    return 'var(--good)';
+  }
+
+  // ---- revocation / liberation, partagees entre les formulaires et les
+  // boutons places directement sur une ligne d'historique ou de recherche ----
+  async function revokeLicense(target, label){
+    if (!confirm('Révoquer définitivement la licence de ' + label + ' ?\nLe client ne pourra plus l\'utiliser.')) return false;
+    await api('/v1/admin/revoke', {method:'POST', body: target});
+    log('Licence de ' + label + ' révoquée.', true);
+    return true;
+  }
+  async function releaseSeatsFor(target, label){
+    await api('/v1/admin/release-seats', {method:'POST', body: target});
+    log('Postes libérés pour ' + label + '.', true);
+    return true;
+  }
+
   async function api(path, opts){
     opts = opts || {};
     var url = baseUrl() + path;
@@ -485,6 +583,7 @@
       btn.setAttribute('aria-selected','true');
       document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
       document.getElementById('panel-' + btn.dataset.panel).classList.add('active');
+      if (btn.dataset.panel === 'history' && !historyState.loaded) fetchHistory();
     });
   });
 
@@ -568,21 +667,39 @@
         var card = document.createElement('div');
         card.className = 'lic-card';
         var actsRows = (lic.activations || []).map(function(a){
-          return '<tr><td>' + (a.hostname || '—') + '</td><td>' + (a.os || '—') + '</td><td>' + (a.app_version || '—') + '</td>' +
+          return '<tr><td>' + escapeHtml(a.hostname || '—') + '</td><td>' + escapeHtml(a.os || '—') + '</td><td>' + escapeHtml(a.app_version || '—') + '</td>' +
                  '<td>' + (a.active ? 'oui' : 'non') + '</td><td>' + (a.last_seen ? new Date(a.last_seen).toLocaleDateString('fr-FR') : '—') + '</td></tr>';
         }).join('');
+        var label = lic.customer_name || lic.email || (lic.key_prefix + '…');
         card.innerHTML =
-          '<div class="lic-head"><span class="key mono" style="font-size:14px;">' + lic.key_prefix + '…</span>' + statusBadge(lic.status) + '</div>' +
+          '<div class="lic-head"><span class="key mono" style="font-size:14px;">' + escapeHtml(lic.key_prefix) + '…</span>' + statusBadge(lic.status) + '</div>' +
           '<div class="kv">' +
-            '<div><span class="k">Client</span><span class="v">' + (lic.customer_name || '—') + '</span></div>' +
-            '<div><span class="k">Email</span><span class="v" style="font-weight:500;">' + (lic.email || '—') + '</span></div>' +
-            '<div><span class="k">Formule</span><span class="v">' + (lic.billing_period || '—') + '</span></div>' +
-            '<div><span class="k">Postes</span><span class="v">' + (lic.seats_max ?? '—') + '</span></div>' +
+            '<div><span class="k">Client</span><span class="v">' + escapeHtml(lic.customer_name || '—') + '</span></div>' +
+            '<div><span class="k">Email</span><span class="v" style="font-weight:500;">' + escapeHtml(lic.email || '—') + '</span></div>' +
+            '<div><span class="k">Formule</span><span class="v">' + escapeHtml(lic.billing_period || '—') + '</span></div>' +
+            '<div><span class="k">Postes</span><span class="v">' + (lic.seats_used ?? '—') + ' / ' + (lic.seats_max ?? '—') + '</span></div>' +
             '<div><span class="k">Fin de période</span><span class="v">' + (lic.current_period_end ? new Date(lic.current_period_end).toLocaleDateString('fr-FR') : '—') + '</span></div>' +
+            '<div><span class="k">Temps restant</span><span class="v" style="color:' + remainingColor(lic.current_period_end) + ';">' + remainingLabel(lic.current_period_end) + '</span></div>' +
             '<div><span class="k">Créée le</span><span class="v" style="font-weight:500;">' + (lic.created_at ? new Date(lic.created_at).toLocaleDateString('fr-FR') : '—') + '</span></div>' +
           '</div>' +
           (actsRows ? ('<div class="acts-wrap"><table class="acts"><thead><tr><th>Poste</th><th>OS</th><th>Version</th><th>Actif</th><th>Dernier contact</th></tr></thead><tbody>' + actsRows + '</tbody></table></div>')
-                     : '<p class="hint" style="margin:0;">Aucune activation enregistrée pour cette clé.</p>');
+                     : '<p class="hint" style="margin:0;">Aucune activation enregistrée pour cette clé.</p>') +
+          '<div class="row-actions">' +
+            (lic.status !== 'revoked' ? '<button type="button" class="btn btn-danger btn-sm" data-act="revoke">Révoquer</button>' : '') +
+            '<button type="button" class="btn btn-ghost btn-sm" data-act="release">Libérer les postes</button>' +
+          '</div>';
+        card.querySelector('[data-act="revoke"]') && card.querySelector('[data-act="revoke"]').addEventListener('click', async function(btn){
+          try {
+            var ok = await revokeLicense({id: lic.id}, label);
+            if (ok) document.getElementById('lookup-submit').click();
+          } catch (e) { log('Échec de révocation : ' + e.message, false); alert(e.message); }
+        });
+        card.querySelector('[data-act="release"]').addEventListener('click', async function(){
+          try {
+            await releaseSeatsFor({id: lic.id}, label);
+            document.getElementById('lookup-submit').click();
+          } catch (e) { log('Échec de libération des postes : ' + e.message, false); alert(e.message); }
+        });
         resultBox.appendChild(card);
       });
       resultBox.style.display = 'flex';
@@ -602,14 +719,14 @@
     document.getElementById('revoke-result').classList.remove('show');
     var value = document.getElementById('revoke-value').value.trim();
     if (!value) { showError('revoke-error', 'Renseigne une clé de licence.'); return; }
-    if (!confirm('Révoquer définitivement la clé ' + value + ' ?\nLe client ne pourra plus l\'utiliser.')) return;
     var btn = document.getElementById('revoke-submit');
-    btn.disabled = true; btn.textContent = 'Révocation…';
     try {
-      await api('/v1/admin/revoke', {method:'POST', body:{key: value}});
+      var ok = await revokeLicense({key: value}, value);
+      if (!ok) return;
+      btn.disabled = true; btn.textContent = 'Révocation…';
       document.getElementById('revoke-result').classList.add('show');
-      log('Licence ' + value + ' révoquée.', true);
       document.getElementById('revoke-value').value = '';
+      if (historyState.loaded) fetchHistory();
     } catch (e) {
       showError('revoke-error', e.message);
       log('Échec de révocation : ' + e.message, false);
@@ -628,15 +745,109 @@
     var btn = document.getElementById('release-submit');
     btn.disabled = true; btn.textContent = 'Libération…';
     try {
-      await api('/v1/admin/release-seats', {method:'POST', body:{key: value}});
+      await releaseSeatsFor({key: value}, value);
       document.getElementById('release-result').classList.add('show');
-      log('Postes libérés pour la clé ' + value + '.', true);
       document.getElementById('release-value').value = '';
+      if (historyState.loaded) fetchHistory();
     } catch (e) {
       showError('release-error', e.message);
       log('Échec de libération des postes : ' + e.message, false);
     } finally {
       btn.disabled = false; btn.textContent = 'Libérer les postes';
+    }
+  });
+
+  // ---- history (toutes les licences) ----
+  var historyState = { loaded:false, limit:50, offset:0, total:0, status:'all', search:'' };
+  var historyBody = document.getElementById('history-body');
+  var historySearchTimer = null;
+
+  function renderHistoryRows(rows){
+    if (!rows.length) {
+      historyBody.innerHTML = '<tr><td colspan="9" class="hint" style="padding:14px 0;">Aucune licence trouvée.</td></tr>';
+      return;
+    }
+    historyBody.innerHTML = rows.map(function(lic){
+      var label = lic.customer_name || lic.email || (lic.key_prefix + '…');
+      var who = '<div style="font-weight:600;">' + escapeHtml(lic.customer_name || '—') + '</div>' +
+                '<div class="mono" style="font-size:12px;color:var(--ink-soft);">' + escapeHtml(lic.email || '—') + '</div>';
+      var actions = '<div class="row-actions">' +
+        (lic.status !== 'revoked' ? '<button type="button" class="btn btn-danger btn-sm" data-hist-act="revoke" data-id="' + lic.id + '" data-label="' + escapeHtml(label) + '">Révoquer</button>' : '') +
+        '<button type="button" class="btn btn-ghost btn-sm" data-hist-act="release" data-id="' + lic.id + '" data-label="' + escapeHtml(label) + '">Libérer</button>' +
+      '</div>';
+      return '<tr>' +
+        '<td>' + who + '</td>' +
+        '<td class="mono nowrap">' + escapeHtml(lic.key_prefix) + '…</td>' +
+        '<td>' + statusBadge(lic.status) + '</td>' +
+        '<td class="nowrap">' + escapeHtml(lic.billing_period || '—') + '</td>' +
+        '<td class="nowrap">' + (lic.seats_used ?? '—') + ' / ' + (lic.seats_max ?? '—') + '</td>' +
+        '<td class="nowrap">' + (lic.current_period_end ? new Date(lic.current_period_end).toLocaleDateString('fr-FR') : '—') + '</td>' +
+        '<td class="nowrap" style="color:' + remainingColor(lic.current_period_end) + ';font-weight:600;">' + remainingLabel(lic.current_period_end) + '</td>' +
+        '<td class="nowrap">' + (lic.created_at ? new Date(lic.created_at).toLocaleDateString('fr-FR') : '—') + '</td>' +
+        '<td>' + actions + '</td>' +
+      '</tr>';
+    }).join('');
+
+    historyBody.querySelectorAll('[data-hist-act]').forEach(function(b){
+      b.addEventListener('click', async function(){
+        var id = this.getAttribute('data-id');
+        var label = this.getAttribute('data-label');
+        try {
+          if (this.getAttribute('data-hist-act') === 'revoke') await revokeLicense({id:id}, label);
+          else await releaseSeatsFor({id:id}, label);
+          fetchHistory();
+        } catch (e) {
+          log('Échec : ' + e.message, false);
+          alert(e.message);
+        }
+      });
+    });
+  }
+
+  async function fetchHistory(){
+    hideError('history-error');
+    historyBody.innerHTML = '<tr><td colspan="9" class="hint" style="padding:14px 0;">Chargement…</td></tr>';
+    try {
+      var qs = 'limit=' + historyState.limit + '&offset=' + historyState.offset +
+                '&status=' + encodeURIComponent(historyState.status) +
+                (historyState.search ? '&q=' + encodeURIComponent(historyState.search) : '');
+      var data = await api('/v1/admin/licenses?' + qs);
+      historyState.loaded = true;
+      historyState.total = data.total || 0;
+      renderHistoryRows(data.results || []);
+      var from = data.results.length ? historyState.offset + 1 : 0;
+      var to = historyState.offset + (data.results ? data.results.length : 0);
+      document.getElementById('history-count').textContent = historyState.total
+        ? (from + '–' + to + ' sur ' + historyState.total)
+        : 'Aucune licence.';
+      document.getElementById('history-prev').disabled = historyState.offset <= 0;
+      document.getElementById('history-next').disabled = to >= historyState.total;
+    } catch (e) {
+      historyBody.innerHTML = '<tr><td colspan="9" class="hint" style="padding:14px 0;">—</td></tr>';
+      showError('history-error', e.message);
+      log('Échec de chargement de l\'historique : ' + e.message, false);
+    }
+  }
+
+  document.getElementById('history-refresh').addEventListener('click', function(){ historyState.offset = 0; fetchHistory(); });
+  document.getElementById('history-status').addEventListener('change', function(){
+    historyState.status = this.value; historyState.offset = 0; fetchHistory();
+  });
+  document.getElementById('history-search').addEventListener('input', function(){
+    var v = this.value.trim();
+    clearTimeout(historySearchTimer);
+    historySearchTimer = setTimeout(function(){
+      historyState.search = v; historyState.offset = 0; fetchHistory();
+    }, 350);
+  });
+  document.getElementById('history-prev').addEventListener('click', function(){
+    historyState.offset = Math.max(0, historyState.offset - historyState.limit);
+    fetchHistory();
+  });
+  document.getElementById('history-next').addEventListener('click', function(){
+    if (historyState.offset + historyState.limit < historyState.total) {
+      historyState.offset += historyState.limit;
+      fetchHistory();
     }
   });
 
