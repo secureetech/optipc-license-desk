@@ -42,6 +42,17 @@
     border:1px solid var(--border);border-radius:10px;padding:10px 18px;font-weight:600;font-size:14px;
     text-decoration:none;cursor:pointer}
   .invoice-btn:hover{background:#0b0815}
+  .consent-box{background:#0b0815;border:2px solid var(--border);border-radius:14px;padding:18px 20px;margin:14px 0;
+    display:flex;align-items:flex-start;gap:14px;cursor:pointer}
+  .consent-box.required{border-color:#3d2f5c}
+  .consent-box input[type="checkbox"]{flex:none;width:26px;height:26px;margin-top:2px;accent-color:var(--orange);cursor:pointer}
+  .consent-box .consent-text{font-size:15px;color:var(--text);line-height:1.5}
+  .consent-box .consent-text small{display:block;margin-top:4px;color:var(--text-soft);font-size:13px}
+  .consent-box a{color:var(--orange)}
+  .obtain-btn{width:100%;margin-top:6px;background:linear-gradient(135deg,var(--orange),#fb923c);color:#1a1a1a;
+    border:none;border-radius:12px;padding:16px 18px;font-weight:700;font-size:16px;cursor:pointer}
+  .obtain-btn:disabled{background:#3a3350;color:#8a80a8;cursor:not-allowed}
+  .consent-error{color:var(--red);font-size:14px;margin-top:10px;text-align:center}
   [hidden]{display:none!important}
 </style>
 </head>
@@ -59,6 +70,36 @@
       <p id="error-text">Impossible de recuperer votre licence pour le moment.</p>
       <p>Pas d'inquietude : votre paiement est bien enregistre. Appelez-nous au
         <a class="phone" href="tel:0554542343">05 54 54 23 43</a> et nous vous communiquerons votre cle.</p>
+    </div>
+
+    <div id="consent" hidden>
+      <h1>Merci, votre paiement est confirme !</h1>
+      <p>Encore une petite etape avant d'afficher votre cle de licence.</p>
+
+      <label class="consent-box required">
+        <input type="checkbox" id="cgv-check">
+        <span class="consent-text">
+          En cochant cette case, j'accepte les
+          <a href="https://secureetech.com/cgv/" target="_blank" rel="noopener">Conditions Generales de Vente</a>
+          de SecureeTech pour mon abonnement OptiPC Pro.
+          <small>Obligatoire pour recevoir votre cle.</small>
+        </span>
+      </label>
+
+      <label class="consent-box">
+        <input type="checkbox" id="marketing-check">
+        <span class="consent-text">
+          En cochant cette case, j'accepte de recevoir par email les actualites et offres de SecureeTech
+          concernant OptiPC et ses services d'assistance informatique.
+          <small>Facultatif. Vous pourrez vous desabonner a tout moment.</small>
+        </span>
+      </label>
+
+      <button class="obtain-btn" id="obtain-btn" type="button" disabled>Obtenir ma cle</button>
+      <p class="consent-error" id="consent-error" hidden>
+        Impossible d'enregistrer votre choix pour le moment. Reessayez, ou appelez le
+        <a class="phone" href="tel:0554542343">05 54 54 23 43</a>.
+      </p>
     </div>
 
     <div id="success" hidden>
@@ -106,10 +147,16 @@
   var loadingTextEl = document.getElementById('loading-text');
   var errorEl = document.getElementById('error');
   var errorTextEl = document.getElementById('error-text');
+  var consentEl = document.getElementById('consent');
   var successEl = document.getElementById('success');
 
+  var cgvCheck = document.getElementById('cgv-check');
+  var marketingCheck = document.getElementById('marketing-check');
+  var obtainBtn = document.getElementById('obtain-btn');
+  var consentErrorEl = document.getElementById('consent-error');
+
   function show(el) {
-    [loadingEl, errorEl, successEl].forEach(function (e) { e.hidden = (e !== el); });
+    [loadingEl, errorEl, consentEl, successEl].forEach(function (e) { e.hidden = (e !== el); });
   }
 
   function fmtAmount(cents, currency) {
@@ -141,6 +188,31 @@
     return;
   }
 
+  // Rempli des que les donnees de paiement arrivent, utilise seulement une
+  // fois le consentement valide (voir plus bas), pour afficher la cle.
+  function populateSuccess(d) {
+    document.getElementById('key-value').textContent = d.key || d.key_prefix + '...';
+    document.getElementById('sum-plan').textContent = planLabel(d.billing_period);
+    document.getElementById('sum-amount').textContent = fmtAmount(d.amount_total, d.currency);
+    document.getElementById('sum-period').textContent = fmtDate(d.current_period_end);
+    var emailRow = document.getElementById('sum-email-row');
+    if (d.email) {
+      document.getElementById('sum-email').textContent = d.email;
+    } else {
+      emailRow.hidden = true;
+    }
+    var invoiceRow = document.getElementById('invoice-row');
+    var invoiceLink = document.getElementById('invoice-link');
+    var invoiceUrl = d.invoice_pdf || d.invoice_hosted_url;
+    if (invoiceUrl) {
+      invoiceLink.href = invoiceUrl;
+      invoiceLink.textContent = d.invoice_pdf ? 'Telecharger la facture (PDF)' : 'Voir la facture';
+      invoiceRow.hidden = false;
+    } else {
+      invoiceRow.hidden = true;
+    }
+  }
+
   var attempts = 0;
   var maxAttempts = 8;
 
@@ -150,28 +222,10 @@
       .then(function (r) { return r.json().then(function (data) { return { status: r.status, data: data }; }); })
       .then(function (res) {
         if (res.status === 200 && res.data && res.data.status === 'ok') {
-          var d = res.data;
-          document.getElementById('key-value').textContent = d.key || d.key_prefix + '...';
-          document.getElementById('sum-plan').textContent = planLabel(d.billing_period);
-          document.getElementById('sum-amount').textContent = fmtAmount(d.amount_total, d.currency);
-          document.getElementById('sum-period').textContent = fmtDate(d.current_period_end);
-          var emailRow = document.getElementById('sum-email-row');
-          if (d.email) {
-            document.getElementById('sum-email').textContent = d.email;
-          } else {
-            emailRow.hidden = true;
-          }
-          var invoiceRow = document.getElementById('invoice-row');
-          var invoiceLink = document.getElementById('invoice-link');
-          var invoiceUrl = d.invoice_pdf || d.invoice_hosted_url;
-          if (invoiceUrl) {
-            invoiceLink.href = invoiceUrl;
-            invoiceLink.textContent = d.invoice_pdf ? 'Telecharger la facture (PDF)' : 'Voir la facture';
-            invoiceRow.hidden = false;
-          } else {
-            invoiceRow.hidden = true;
-          }
-          show(successEl);
+          populateSuccess(res.data);
+          // La cle est prete cote serveur, mais on ne l'affiche qu'apres que
+          // le client a coche la case CGV obligatoire (voir cgv-check).
+          show(consentEl);
           return;
         }
         if (res.status === 202 || res.status === 404) {
@@ -196,6 +250,38 @@
         }
       });
   }
+
+  cgvCheck.addEventListener('change', function () {
+    obtainBtn.disabled = !cgvCheck.checked;
+  });
+
+  obtainBtn.addEventListener('click', function () {
+    if (!cgvCheck.checked) return;
+    obtainBtn.disabled = true;
+    obtainBtn.textContent = 'Enregistrement...';
+    consentErrorEl.hidden = true;
+
+    fetch(API_BASE + '/v1/checkout/' + encodeURIComponent(sessionId) + '/consent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cgv_accepted: true, marketing_consent: !!marketingCheck.checked }),
+    })
+      .then(function (r) { return r.json().then(function (data) { return { status: r.status, data: data }; }); })
+      .then(function (res) {
+        if (res.status === 200 && res.data && res.data.status === 'ok') {
+          show(successEl);
+        } else {
+          consentErrorEl.hidden = false;
+          obtainBtn.disabled = false;
+          obtainBtn.textContent = 'Obtenir ma cle';
+        }
+      })
+      .catch(function () {
+        consentErrorEl.hidden = false;
+        obtainBtn.disabled = false;
+        obtainBtn.textContent = 'Obtenir ma cle';
+      });
+  });
 
   document.getElementById('copy-btn') && document.getElementById('copy-btn').addEventListener('click', function () {
     var text = document.getElementById('key-value').textContent;
