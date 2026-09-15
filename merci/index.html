@@ -37,6 +37,11 @@
   @keyframes spin{to{transform:rotate(360deg)}}
   .error{color:var(--red)}
   .phone{color:var(--orange);font-weight:600;text-decoration:none}
+  .invoice-row{margin-top:16px;text-align:center}
+  .invoice-btn{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text);
+    border:1px solid var(--border);border-radius:10px;padding:10px 18px;font-weight:600;font-size:14px;
+    text-decoration:none;cursor:pointer}
+  .invoice-btn:hover{background:#0b0815}
   [hidden]{display:none!important}
 </style>
 </head>
@@ -70,6 +75,10 @@
         <div><b>Montant paye :</b> <span id="sum-amount"></span></div>
         <div><b>Prochaine echeance :</b> <span id="sum-period"></span></div>
         <div id="sum-email-row"><b>Recu envoye a :</b> <span id="sum-email"></span></div>
+      </div>
+
+      <div class="invoice-row" id="invoice-row" hidden>
+        <a class="invoice-btn" id="invoice-link" href="#" target="_blank" rel="noopener">Telecharger la facture (PDF)</a>
       </div>
 
       <div class="steps">
@@ -151,6 +160,16 @@
             document.getElementById('sum-email').textContent = d.email;
           } else {
             emailRow.hidden = true;
+          }
+          var invoiceRow = document.getElementById('invoice-row');
+          var invoiceLink = document.getElementById('invoice-link');
+          var invoiceUrl = d.invoice_pdf || d.invoice_hosted_url;
+          if (invoiceUrl) {
+            invoiceLink.href = invoiceUrl;
+            invoiceLink.textContent = d.invoice_pdf ? 'Telecharger la facture (PDF)' : 'Voir la facture';
+            invoiceRow.hidden = false;
+          } else {
+            invoiceRow.hidden = true;
           }
           show(successEl);
           return;
