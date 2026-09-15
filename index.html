@@ -1,47 +1,27 @@
 <!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>OptiPC License Desk</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
-  :root{
-    --ink:#101423;
-    --ink-soft:#4b5468;
-    --surface-0:#f4f5f9;
-    --surface-1:#ffffff;
-    --surface-2:#eceff5;
-    --border:#dde1ea;
-    --accent:#0e7c86;
-    --accent-ink:#ffffff;
-    --accent-soft:#e3f3f2;
-    --good:#1e8e5a;
-    --good-soft:#e5f6ec;
-    --warn:#a8660f;
-    --warn-soft:#fbf0dd;
-    --danger:#c0392b;
-    --danger-soft:#fbeae8;
-    --focus:#0e7c86;
-    --shadow:0 1px 2px rgba(16,20,35,.06), 0 8px 24px -12px rgba(16,20,35,.18);
-  }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --ink:#e7ecf5;
-      --ink-soft:#9aa4bb;
-      --surface-0:#0e1220;
-      --surface-1:#161b2c;
-      --surface-2:#1d2337;
-      --border:#2a3049;
-      --accent:#57dbe0;
-      --accent-ink:#052226;
-      --accent-soft:#132e30;
-      --good:#4ade80;
-      --good-soft:#123321;
-      --warn:#fbbf24;
-      --warn-soft:#3a2c0c;
-      --danger:#f87171;
-      --danger-soft:#3a1614;
-      --focus:#57dbe0;
-      --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 30px -14px rgba(0,0,0,.6);
-    }
-  }
-  :root[data-theme="dark"]{
+:root{
+  --ink:#101423;
+  --ink-soft:#4b5468;
+  --surface-0:#f4f5f9;
+  --surface-1:#ffffff;
+  --surface-2:#eceff5;
+  --border:#dde1ea;
+  --accent:#0e7c86;
+  --accent-ink:#ffffff;
+  --accent-soft:#e3f3f2;
+  --good:#1e8e5a;
+  --good-soft:#e5f6ec;
+  --warn:#a8660f;
+  --warn-soft:#fbf0dd;
+  --danger:#c0392b;
+  --danger-soft:#fbeae8;
+  --focus:#0e7c86;
+  --shadow:0 1px 2px rgba(16,20,35,.06), 0 8px 24px -12px rgba(16,20,35,.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
     --ink:#e7ecf5;
     --ink-soft:#9aa4bb;
     --surface-0:#0e1220;
@@ -60,823 +40,878 @@
     --focus:#57dbe0;
     --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 30px -14px rgba(0,0,0,.6);
   }
+}
+:root[data-theme="dark"]{
+  --ink:#e7ecf5;
+  --ink-soft:#9aa4bb;
+  --surface-0:#0e1220;
+  --surface-1:#161b2c;
+  --surface-2:#1d2337;
+  --border:#2a3049;
+  --accent:#57dbe0;
+  --accent-ink:#052226;
+  --accent-soft:#132e30;
+  --good:#4ade80;
+  --good-soft:#123321;
+  --warn:#fbbf24;
+  --warn-soft:#3a2c0c;
+  --danger:#f87171;
+  --danger-soft:#3a1614;
+  --focus:#57dbe0;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 30px -14px rgba(0,0,0,.6);
+}
 
-  *{box-sizing:border-box;}
-  body{
-    margin:0;
-    background:var(--surface-0);
-    color:var(--ink);
-    font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
-    padding-inline:20px;
-    padding-block:28px 60px;
-  }
-  .mono{font-family:"IBM Plex Mono",ui-monospace,Consolas,monospace;}
-  .wrap{max-width:920px;margin:0 auto;display:flex;flex-direction:column;gap:20px;}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--surface-0);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  padding-inline:20px;
+  padding-block:28px 60px;
+}
+.mono{font-family:"IBM Plex Mono",ui-monospace,Consolas,monospace;}
+.wrap{max-width:960px;margin:0 auto;display:flex;flex-direction:column;gap:20px;}
 
-  header.page{display:flex;flex-direction:column;gap:4px;}
-  header.page .eyebrow{
-    font-family:"IBM Plex Mono",monospace;
-    font-size:12px;letter-spacing:.08em;text-transform:uppercase;
-    color:var(--accent);font-weight:600;
-  }
-  header.page h1{margin:0;font-size:26px;font-weight:700;letter-spacing:-.01em;text-wrap:balance;}
-  header.page p{margin:0;color:var(--ink-soft);font-size:14.5px;max-width:60ch;}
+header.page{display:flex;flex-direction:column;gap:4px;}
+header.page .eyebrow{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--accent);font-weight:600;
+}
+header.page h1{margin:0;font-size:26px;font-weight:700;letter-spacing:-.01em;text-wrap:balance;}
+header.page p{margin:0;color:var(--ink-soft);font-size:14.5px;max-width:60ch;}
 
-  .card{
-    background:var(--surface-1);
-    border:1px solid var(--border);
-    border-radius:12px;
-    box-shadow:var(--shadow);
-  }
+.card{
+  background:var(--surface-1);
+  border:1px solid var(--border);
+  border-radius:12px;
+  box-shadow:var(--shadow);
+}
 
-  .connection{padding:16px 18px;display:flex;flex-direction:column;gap:12px;}
-  .connection-row{display:flex;gap:12px;flex-wrap:wrap;align-items:end;}
-  .field{display:flex;flex-direction:column;gap:6px;flex:1 1 220px;min-width:0;}
-  .field label{font-size:12.5px;font-weight:600;color:var(--ink-soft);}
-  .field input, .field select, .field textarea{
-    font:inherit;font-size:14px;
-    background:var(--surface-2);
-    border:1px solid var(--border);
-    color:var(--ink);
-    border-radius:8px;
-    padding:9px 11px;
-    width:100%;
-  }
-  .field input.mono{font-size:13.5px;}
-  .field input:focus, .field select:focus, .field textarea:focus{
-    outline:2px solid var(--focus);outline-offset:1px;
-  }
-  .field-check{flex-direction:row;align-items:center;gap:7px;flex:0 0 auto;}
-  .field-check input{width:auto;}
-  .field-check label{font-weight:500;color:var(--ink);}
+.connection{padding:16px 18px;display:flex;flex-direction:column;gap:12px;}
+.connection-row{display:flex;gap:12px;flex-wrap:wrap;align-items:end;}
+.field{display:flex;flex-direction:column;gap:6px;flex:1 1 220px;min-width:0;}
+.field label{font-size:12.5px;font-weight:600;color:var(--ink-soft);}
+.field input, .field select, .field textarea{
+  font:inherit;font-size:14px;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  color:var(--ink);
+  border-radius:8px;
+  padding:9px 11px;
+  width:100%;
+}
+.field input.mono{font-size:13.5px;}
+.field input:focus, .field select:focus, .field textarea:focus{
+  outline:2px solid var(--focus);outline-offset:1px;
+}
+.field-check{flex-direction:row;align-items:center;gap:7px;flex:0 0 auto;}
+.field-check input{width:auto;}
+.field-check label{font-weight:500;color:var(--ink);}
 
-  .btn{
-    font:inherit;font-size:14px;font-weight:600;
-    border-radius:8px;border:1px solid transparent;
-    padding:9px 16px;cursor:pointer;
-    display:inline-flex;align-items:center;gap:7px;justify-content:center;
-    white-space:nowrap;
-  }
-  .btn-accent{background:var(--accent);color:var(--accent-ink);}
-  .btn-accent:hover{filter:brightness(1.05);}
-  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--border);}
-  .btn-ghost:hover{background:var(--surface-2);}
-  .btn-danger{background:var(--danger);color:#fff;}
-  .btn-danger:hover{filter:brightness(1.08);}
-  .btn:disabled{opacity:.55;cursor:not-allowed;}
-  .btn:focus-visible{outline:2px solid var(--focus);outline-offset:2px;}
+.btn{
+  font:inherit;font-size:14px;font-weight:600;
+  border-radius:8px;border:1px solid transparent;
+  padding:9px 16px;cursor:pointer;
+  display:inline-flex;align-items:center;gap:7px;justify-content:center;
+  white-space:nowrap;
+}
+.btn-accent{background:var(--accent);color:var(--accent-ink);}
+.btn-accent:hover{filter:brightness(1.05);}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--border);}
+.btn-ghost:hover{background:var(--surface-2);}
+.btn-danger{background:var(--danger);color:#fff;}
+.btn-danger:hover{filter:brightness(1.08);}
+.btn:disabled{opacity:.55;cursor:not-allowed;}
+.btn:focus-visible{outline:2px solid var(--focus);outline-offset:2px;}
 
-  #status-pill{
-    font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;
-    padding:4px 10px;border-radius:999px;
-    display:inline-flex;align-items:center;gap:6px;white-space:nowrap;
-  }
-  #status-pill .dot{width:7px;height:7px;border-radius:50%;background:currentColor;}
-  .pill-idle{background:var(--surface-2);color:var(--ink-soft);}
-  .pill-good{background:var(--good-soft);color:var(--good);}
-  .pill-bad{background:var(--danger-soft);color:var(--danger);}
+#status-pill{
+  font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;
+  padding:4px 10px;border-radius:999px;
+  display:inline-flex;align-items:center;gap:6px;white-space:nowrap;
+}
+#status-pill .dot{width:7px;height:7px;border-radius:50%;background:currentColor;}
+.pill-idle{background:var(--surface-2);color:var(--ink-soft);}
+.pill-good{background:var(--good-soft);color:var(--good);}
+.pill-bad{background:var(--danger-soft);color:var(--danger);}
 
-  nav.tabs{display:flex;gap:6px;flex-wrap:wrap;}
-  nav.tabs button{
-    font:inherit;font-size:13.5px;font-weight:600;
-    background:var(--surface-1);color:var(--ink-soft);
-    border:1px solid var(--border);border-radius:9px;
-    padding:9px 14px;cursor:pointer;
-  }
-  nav.tabs button[aria-selected="true"]{
-    background:var(--accent);color:var(--accent-ink);border-color:var(--accent);
-  }
-  nav.tabs button:focus-visible{outline:2px solid var(--focus);outline-offset:2px;}
+nav.tabs{display:flex;gap:6px;flex-wrap:wrap;}
+nav.tabs button{
+  font:inherit;font-size:13.5px;font-weight:600;
+  background:var(--surface-1);color:var(--ink-soft);
+  border:1px solid var(--border);border-radius:9px;
+  padding:9px 14px;cursor:pointer;
+}
+nav.tabs button[aria-selected="true"]{
+  background:var(--accent);color:var(--accent-ink);border-color:var(--accent);
+}
+nav.tabs button:focus-visible{outline:2px solid var(--focus);outline-offset:2px;}
 
-  .panel{padding:20px;display:none;flex-direction:column;gap:16px;}
-  .panel.active{display:flex;}
-  .panel h2{margin:0;font-size:16px;font-weight:700;}
-  .panel .hint{margin:-8px 0 0;font-size:13px;color:var(--ink-soft);}
-  form{display:flex;flex-direction:column;gap:14px;}
-  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;}
-  .actions-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.panel{padding:20px;display:none;flex-direction:column;gap:16px;}
+.panel.active{display:flex;}
+.panel h2{margin:0;font-size:16px;font-weight:700;}
+.panel .hint{margin:-8px 0 0;font-size:13px;color:var(--ink-soft);}
+form{display:flex;flex-direction:column;gap:14px;}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;}
+.actions-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
 
-  .radio-row{display:flex;gap:16px;flex-wrap:wrap;}
-  .radio-row label{display:flex;align-items:center;gap:6px;font-size:13.5px;font-weight:500;}
+.radio-row{display:flex;gap:16px;flex-wrap:wrap;}
+.radio-row label{display:flex;align-items:center;gap:6px;font-size:13.5px;font-weight:500;}
 
-  .result{border-top:1px dashed var(--border);padding-top:16px;display:none;flex-direction:column;gap:12px;}
-  .result.show{display:flex;}
-  .keybox{
-    background:var(--accent-soft);border:1px solid var(--accent);
-    border-radius:10px;padding:14px 16px;
-    display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;
-  }
-  .keybox .key{font-family:"IBM Plex Mono",monospace;font-size:15px;font-weight:600;letter-spacing:.02em;word-break:break-all;}
-  .kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px 16px;}
-  .kv div{display:flex;flex-direction:column;gap:2px;}
-  .kv .k{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);}
-  .kv .v{font-size:14px;font-weight:600;}
-  .kv .v.mono{font-weight:500;}
+.result{border-top:1px dashed var(--border);padding-top:16px;display:none;flex-direction:column;gap:12px;}
+.result.show{display:flex;}
+.keybox{
+  background:var(--accent-soft);border:1px solid var(--accent);
+  border-radius:10px;padding:14px 16px;
+  display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;
+}
+.keybox .key{font-family:"IBM Plex Mono",monospace;font-size:15px;font-weight:600;letter-spacing:.02em;word-break:break-all;}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px 16px;}
+.kv div{display:flex;flex-direction:column;gap:2px;}
+.kv .k{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);}
+.kv .v{font-size:14px;font-weight:600;}
+.kv .v.mono{font-weight:500;}
 
-  .badge{
-    font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:600;
-    padding:3px 9px;border-radius:999px;text-transform:uppercase;letter-spacing:.03em;
-    display:inline-block;width:fit-content;
-  }
-  .badge-active{background:var(--good-soft);color:var(--good);}
-  .badge-revoked{background:var(--danger-soft);color:var(--danger);}
-  .badge-pending, .badge-other{background:var(--warn-soft);color:var(--warn);}
+.badge{
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:600;
+  padding:3px 9px;border-radius:999px;text-transform:uppercase;letter-spacing:.03em;
+  display:inline-block;width:fit-content;
+}
+.badge-active{background:var(--good-soft);color:var(--good);}
+.badge-revoked{background:var(--danger-soft);color:var(--danger);}
+.badge-pending, .badge-other{background:var(--warn-soft);color:var(--warn);}
 
-  .lic-card{border:1px solid var(--border);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:10px;background:var(--surface-2);}
-  .lic-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;}
-  table.acts{width:100%;border-collapse:collapse;font-size:13px;}
-  table.acts th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);font-weight:600;padding:4px 8px 6px 0;border-bottom:1px solid var(--border);}
-  table.acts td{padding:6px 8px 6px 0;border-bottom:1px solid var(--border);}
-  .acts-wrap{overflow-x:auto;}
-  .btn-sm{padding:5px 10px;font-size:12.5px;}
-  .row-actions{display:flex;gap:6px;flex-wrap:nowrap;white-space:nowrap;}
-  table.acts td.nowrap, table.acts th.nowrap{white-space:nowrap;}
+.lic-card{border:1px solid var(--border);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:10px;background:var(--surface-2);}
+.lic-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;}
+table.acts{width:100%;border-collapse:collapse;font-size:13px;}
+table.acts th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);font-weight:600;padding:4px 8px 6px 0;border-bottom:1px solid var(--border);}
+table.acts td{padding:6px 8px 6px 0;border-bottom:1px solid var(--border);}
+.acts-wrap{overflow-x:auto;}
+.btn-sm{padding:5px 10px;font-size:12.5px;}
+.row-actions{display:flex;gap:6px;flex-wrap:nowrap;white-space:nowrap;}
+table.acts td.nowrap, table.acts th.nowrap{white-space:nowrap;}
+table.acts td[title], table.acts th[title]{cursor:help;}
 
-  .error-box{background:var(--danger-soft);color:var(--danger);border:1px solid var(--danger);border-radius:8px;padding:10px 13px;font-size:13.5px;display:none;}
-  .error-box.show{display:block;}
+.error-box{background:var(--danger-soft);color:var(--danger);border:1px solid var(--danger);border-radius:8px;padding:10px 13px;font-size:13.5px;display:none;}
+.error-box.show{display:block;}
 
-  .log-card{padding:16px 18px;display:flex;flex-direction:column;gap:10px;}
-  .log-card h2{margin:0;font-size:14px;font-weight:700;}
-  .log-list{display:flex;flex-direction:column;gap:0;max-height:260px;overflow-y:auto;border-top:1px solid var(--border);}
-  .log-row{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:12.5px;align-items:baseline;}
-  .log-row .t{font-family:"IBM Plex Mono",monospace;color:var(--ink-soft);flex:0 0 auto;}
-  .log-row .m{color:var(--ink);}
-  .log-empty{color:var(--ink-soft);font-size:13px;padding:14px 0;}
+.log-card{padding:16px 18px;display:flex;flex-direction:column;gap:10px;}
+.log-card h2{margin:0;font-size:14px;font-weight:700;}
+.log-list{display:flex;flex-direction:column;gap:0;max-height:260px;overflow-y:auto;border-top:1px solid var(--border);}
+.log-row{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:12.5px;align-items:baseline;}
+.log-row .t{font-family:"IBM Plex Mono",monospace;color:var(--ink-soft);flex:0 0 auto;}
+.log-row .m{color:var(--ink);}
+.log-empty{color:var(--ink-soft);font-size:13px;padding:14px 0;}
 
-  footer{text-align:center;color:var(--ink-soft);font-size:12px;padding-top:6px;}
-  footer a{color:var(--accent);}
+footer{text-align:center;color:var(--ink-soft);font-size:12px;padding-top:6px;}
+footer a{color:var(--accent);}
 
-  @media (max-width:520px){
-    .connection-row{flex-direction:column;align-items:stretch;}
-    .lic-head{flex-direction:column;align-items:flex-start;}
-  }
+@media (max-width:520px){
+  .connection-row{flex-direction:column;align-items:stretch;}
+  .lic-head{flex-direction:column;align-items:flex-start;}
+}
 </style></head><body>
 
 <div class="wrap">
 
-  <header class="page">
-    <span class="eyebrow">SecureeTech · Backend licences</span>
-    <h1>OptiPC License Desk</h1>
-    <p>Émets, retrouve et gères les licences OptiPC Pro directement depuis ton navigateur, sans passer par une ligne de commande.</p>
-  </header>
+<header class="page">
+  <span class="eyebrow">SecureeTech · Backend licences</span>
+  <h1>OptiPC License Desk</h1>
+  <p>Émets, retrouve et gères les licences OptiPC Pro directement depuis ton navigateur, sans passer par une ligne de commande.</p>
+</header>
 
-  <section class="card connection">
-    <div class="connection-row">
+<section class="card connection">
+  <div class="connection-row">
+    <div class="field">
+      <label for="api-url">URL de l'API</label>
+      <input id="api-url" class="mono" type="text" value="https://api.secureetech.com" spellcheck="false">
+    </div>
+    <div class="field" style="flex:1 1 260px;">
+      <label for="admin-token">Jeton admin (ADMIN_TOKEN)</label>
+      <input id="admin-token" class="mono" type="password" placeholder="colle ici ton ADMIN_TOKEN Railway" spellcheck="false" autocomplete="off">
+    </div>
+    <div class="field field-check">
+      <input id="remember" type="checkbox">
+      <label for="remember">Se souvenir sur cet appareil</label>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <button class="btn btn-ghost" id="btn-test" type="button">Tester la connexion</button>
+      <span id="status-pill" class="pill-idle"><span class="dot"></span>non testé</span>
+    </div>
+  </div>
+</section>
+
+<nav class="tabs" role="tablist" aria-label="Actions">
+  <button role="tab" aria-selected="true" data-panel="issue">Émettre une licence</button>
+  <button role="tab" aria-selected="false" data-panel="history">Historique</button>
+  <button role="tab" aria-selected="false" data-panel="lookup">Rechercher</button>
+  <button role="tab" aria-selected="false" data-panel="revoke">Révoquer</button>
+  <button role="tab" aria-selected="false" data-panel="release">Libérer les postes</button>
+</nav>
+
+<section class="card">
+
+  <!-- ISSUE -->
+  <div class="panel active" id="panel-issue">
+    <h2>Émettre une licence manuellement</h2>
+    <p class="hint">Pour une vente par téléphone, un geste commercial, ou un test. La clé n'est affichée qu'une seule fois : note-la ou envoie-la tout de suite au client.</p>
+    <form id="form-issue">
+      <div class="grid2">
+        <div class="field">
+          <label for="issue-email">Email client</label>
+          <input id="issue-email" type="email" placeholder="client@exemple.com">
+        </div>
+        <div class="field">
+          <label for="issue-name">Nom du client</label>
+          <input id="issue-name" type="text" placeholder="Jean Dupont">
+        </div>
+        <div class="field">
+          <label for="issue-phone">Téléphone client</label>
+          <input id="issue-phone" class="mono" type="tel" placeholder="06 12 34 56 78">
+        </div>
+        <div class="field">
+          <label for="issue-months">Durée (mois)</label>
+          <input id="issue-months" type="number" min="1" max="36" value="12">
+        </div>
+        <div class="field">
+          <label for="issue-seats">Postes</label>
+          <input id="issue-seats" type="number" min="1" max="20" value="1">
+        </div>
+      </div>
       <div class="field">
-        <label for="api-url">URL de l'API</label>
-        <input id="api-url" class="mono" type="text" value="https://api.secureetech.com" spellcheck="false">
+        <label for="issue-notes">Notes (facultatif)</label>
+        <textarea id="issue-notes" rows="2" placeholder="ex : vente téléphonique du 13/09, réglé par virement"></textarea>
       </div>
-      <div class="field" style="flex:1 1 260px;">
-        <label for="admin-token">Jeton admin (ADMIN_TOKEN)</label>
-        <input id="admin-token" class="mono" type="password" placeholder="colle ici ton ADMIN_TOKEN Railway" spellcheck="false" autocomplete="off">
+      <div class="actions-row">
+        <button class="btn btn-accent" type="submit" id="issue-submit">Générer la clé</button>
       </div>
-      <div class="field field-check">
-        <input id="remember" type="checkbox">
-        <label for="remember">Se souvenir sur cet appareil</label>
+    </form>
+    <div class="error-box" id="issue-error"></div>
+    <div class="result" id="issue-result">
+      <div class="keybox">
+        <span class="key mono" id="issue-key">—</span>
+        <button class="btn btn-ghost" type="button" id="issue-copy">Copier</button>
       </div>
-      <div style="display:flex;gap:10px;align-items:center;">
-        <button class="btn btn-ghost" id="btn-test" type="button">Tester la connexion</button>
-        <span id="status-pill" class="pill-idle"><span class="dot"></span>non testé</span>
-      </div>
-    </div>
-  </section>
-
-  <nav class="tabs" role="tablist" aria-label="Actions">
-    <button role="tab" aria-selected="true" data-panel="issue">Émettre une licence</button>
-    <button role="tab" aria-selected="false" data-panel="history">Historique</button>
-    <button role="tab" aria-selected="false" data-panel="lookup">Rechercher</button>
-    <button role="tab" aria-selected="false" data-panel="revoke">Révoquer</button>
-    <button role="tab" aria-selected="false" data-panel="release">Libérer les postes</button>
-  </nav>
-
-  <section class="card">
-
-    <!-- ISSUE -->
-    <div class="panel active" id="panel-issue">
-      <h2>Émettre une licence manuellement</h2>
-      <p class="hint">Pour une vente par téléphone, un geste commercial, ou un test. La clé n'est affichée qu'une seule fois : note-la ou envoie-la tout de suite au client.</p>
-      <form id="form-issue">
-        <div class="grid2">
-          <div class="field">
-            <label for="issue-email">Email client</label>
-            <input id="issue-email" type="email" placeholder="client@exemple.com">
-          </div>
-          <div class="field">
-            <label for="issue-name">Nom du client</label>
-            <input id="issue-name" type="text" placeholder="Jean Dupont">
-          </div>
-          <div class="field">
-            <label for="issue-months">Durée (mois)</label>
-            <input id="issue-months" type="number" min="1" max="36" value="12">
-          </div>
-          <div class="field">
-            <label for="issue-seats">Postes</label>
-            <input id="issue-seats" type="number" min="1" max="20" value="1">
-          </div>
-        </div>
-        <div class="field">
-          <label for="issue-notes">Notes (facultatif)</label>
-          <textarea id="issue-notes" rows="2" placeholder="ex : vente téléphonique du 13/09, réglé par virement"></textarea>
-        </div>
-        <div class="actions-row">
-          <button class="btn btn-accent" type="submit" id="issue-submit">Générer la clé</button>
-        </div>
-      </form>
-      <div class="error-box" id="issue-error"></div>
-      <div class="result" id="issue-result">
-        <div class="keybox">
-          <span class="key mono" id="issue-key">—</span>
-          <button class="btn btn-ghost" type="button" id="issue-copy">Copier</button>
-        </div>
-        <div class="kv">
-          <div><span class="k">Postes</span><span class="v" id="issue-seats-out">—</span></div>
-          <div><span class="k">Fin de période</span><span class="v" id="issue-end-out">—</span></div>
-        </div>
+      <div class="kv">
+        <div><span class="k">Postes</span><span class="v" id="issue-seats-out">—</span></div>
+        <div><span class="k">Téléphone</span><span class="v mono" id="issue-phone-out">—</span></div>
+        <div><span class="k">Fin de période</span><span class="v" id="issue-end-out">—</span></div>
       </div>
     </div>
+  </div>
 
-    <!-- HISTORY -->
-    <div class="panel" id="panel-history">
-      <h2>Historique des licences</h2>
-      <p class="hint">Toutes les licences émises : quelle clé, pour quel email et quel nom, combien de temps il reste.</p>
-      <div class="actions-row" style="align-items:end;">
-        <div class="field" style="flex:1 1 220px;">
-          <label for="history-search">Recherche (nom, email, clé)</label>
-          <input id="history-search" type="text" placeholder="ex : Dupont ou client@exemple.com">
-        </div>
-        <div class="field" style="flex:0 0 170px;">
-          <label for="history-status">Statut</label>
-          <select id="history-status">
-            <option value="all">Tous</option>
-            <option value="active">Actif</option>
-            <option value="trialing">Essai</option>
-            <option value="past_due">Impayé</option>
-            <option value="canceled">Résilié</option>
-            <option value="revoked">Révoqué</option>
-          </select>
-        </div>
-        <button class="btn btn-ghost" type="button" id="history-refresh">Rafraîchir</button>
+  <!-- HISTORY -->
+  <div class="panel" id="panel-history">
+    <h2>Historique des licences</h2>
+    <p class="hint">Toutes les licences émises : quelle clé, pour quel email, quel nom et quel téléphone, combien de temps il reste. Survole une date raccourcie pour voir le détail complet.</p>
+    <div class="actions-row" style="align-items:end;">
+      <div class="field" style="flex:1 1 220px;">
+        <label for="history-search">Recherche (nom, email, clé)</label>
+        <input id="history-search" type="text" placeholder="ex : Dupont ou client@exemple.com">
       </div>
-      <div class="error-box" id="history-error"></div>
-      <div class="acts-wrap">
-        <table class="acts" id="history-table">
-          <thead>
-            <tr>
-              <th>Client</th>
-              <th>Clé</th>
-              <th>Statut</th>
-              <th>Formule</th>
-              <th>Postes</th>
-              <th>Fin de période</th>
-              <th>Restant</th>
-              <th>Créée le</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="history-body">
-            <tr><td colspan="9" class="hint" style="padding:14px 0;">Chargement…</td></tr>
-          </tbody>
-        </table>
+      <div class="field" style="flex:0 0 170px;">
+        <label for="history-status">Statut</label>
+        <select id="history-status">
+          <option value="all">Tous</option>
+          <option value="active">Actif</option>
+          <option value="trialing">Essai</option>
+          <option value="past_due">Impayé</option>
+          <option value="canceled">Résilié</option>
+          <option value="revoked">Révoqué</option>
+        </select>
       </div>
-      <div class="actions-row" style="justify-content:space-between;">
-        <span class="hint" id="history-count">—</span>
-        <div style="display:flex;gap:8px;">
-          <button class="btn btn-ghost" type="button" id="history-prev">◀ Précédent</button>
-          <button class="btn btn-ghost" type="button" id="history-next">Suivant ▶</button>
-        </div>
-      </div>
+      <button class="btn btn-ghost" type="button" id="history-refresh">Rafraîchir</button>
     </div>
-
-    <!-- LOOKUP -->
-    <div class="panel" id="panel-lookup">
-      <h2>Rechercher une licence</h2>
-      <p class="hint">Par la clé lue au téléphone, ou par l'email du client.</p>
-      <form id="form-lookup">
-        <div class="radio-row">
-          <label><input type="radio" name="lookup-mode" value="key" checked> Par clé</label>
-          <label><input type="radio" name="lookup-mode" value="email"> Par email</label>
-        </div>
-        <div class="field">
-          <label for="lookup-value" id="lookup-value-label">Clé de licence</label>
-          <input id="lookup-value" class="mono" type="text" placeholder="OPTI-XXXX-XXXX-XXXX">
-        </div>
-        <div class="actions-row">
-          <button class="btn btn-accent" type="submit" id="lookup-submit">Rechercher</button>
-        </div>
-      </form>
-      <div class="error-box" id="lookup-error"></div>
-      <div class="result" id="lookup-result" style="display:none;flex-direction:column;gap:12px;"></div>
+    <div class="error-box" id="history-error"></div>
+    <div class="acts-wrap">
+      <table class="acts" id="history-table">
+        <thead>
+          <tr>
+            <th>Client</th>
+            <th>Clé</th>
+            <th>Téléphone</th>
+            <th>Statut</th>
+            <th>Formule</th>
+            <th>Postes</th>
+            <th title="Fin de période et temps restant — survole une valeur pour le detail">Période</th>
+            <th title="Date de création complète au survol">Créée</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="history-body">
+          <tr><td colspan="9" class="hint" style="padding:14px 0;">Chargement…</td></tr>
+        </tbody>
+      </table>
     </div>
-
-    <!-- REVOKE -->
-    <div class="panel" id="panel-revoke">
-      <h2>Révoquer une licence</h2>
-      <p class="hint">Action irréversible : la clé cesse immédiatement de fonctionner. Une confirmation te sera demandée.</p>
-      <form id="form-revoke">
-        <div class="field">
-          <label for="revoke-value">Clé de licence</label>
-          <input id="revoke-value" class="mono" type="text" placeholder="OPTI-XXXX-XXXX-XXXX">
-        </div>
-        <div class="actions-row">
-          <button class="btn btn-danger" type="submit" id="revoke-submit">Révoquer cette licence</button>
-        </div>
-      </form>
-      <div class="error-box" id="revoke-error"></div>
-      <div class="result" id="revoke-result">
-        <p style="margin:0;color:var(--good);font-weight:600;">✓ Licence révoquée.</p>
+    <div class="actions-row" style="justify-content:space-between;">
+      <span class="hint" id="history-count">—</span>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-ghost" type="button" id="history-prev">◀ Précédent</button>
+        <button class="btn btn-ghost" type="button" id="history-next">Suivant ▶</button>
       </div>
     </div>
+  </div>
 
-    <!-- RELEASE -->
-    <div class="panel" id="panel-release">
-      <h2>Libérer tous les postes</h2>
-      <p class="hint">Désactive toutes les installations actives liées à cette clé, sans la révoquer — utile après une réinstallation Windows ou un changement de machine.</p>
-      <form id="form-release">
-        <div class="field">
-          <label for="release-value">Clé de licence</label>
-          <input id="release-value" class="mono" type="text" placeholder="OPTI-XXXX-XXXX-XXXX">
-        </div>
-        <div class="actions-row">
-          <button class="btn btn-accent" type="submit" id="release-submit">Libérer les postes</button>
-        </div>
-      </form>
-      <div class="error-box" id="release-error"></div>
-      <div class="result" id="release-result">
-        <p style="margin:0;color:var(--good);font-weight:600;">✓ Tous les postes ont été libérés.</p>
+  <!-- LOOKUP -->
+  <div class="panel" id="panel-lookup">
+    <h2>Rechercher une licence</h2>
+    <p class="hint">Par la clé lue au téléphone, ou par l'email du client.</p>
+    <form id="form-lookup">
+      <div class="radio-row">
+        <label><input type="radio" name="lookup-mode" value="key" checked> Par clé</label>
+        <label><input type="radio" name="lookup-mode" value="email"> Par email</label>
       </div>
+      <div class="field">
+        <label for="lookup-value" id="lookup-value-label">Clé de licence</label>
+        <input id="lookup-value" class="mono" type="text" placeholder="OPTI-XXXX-XXXX-XXXX">
+      </div>
+      <div class="actions-row">
+        <button class="btn btn-accent" type="submit" id="lookup-submit">Rechercher</button>
+      </div>
+    </form>
+    <div class="error-box" id="lookup-error"></div>
+    <div class="result" id="lookup-result" style="display:none;flex-direction:column;gap:12px;"></div>
+  </div>
+
+  <!-- REVOKE -->
+  <div class="panel" id="panel-revoke">
+    <h2>Révoquer une licence</h2>
+    <p class="hint">Action irréversible : la clé cesse immédiatement de fonctionner. Une confirmation te sera demandée.</p>
+    <form id="form-revoke">
+      <div class="field">
+        <label for="revoke-value">Clé de licence</label>
+        <input id="revoke-value" class="mono" type="text" placeholder="OPTI-XXXX-XXXX-XXXX">
+      </div>
+      <div class="actions-row">
+        <button class="btn btn-danger" type="submit" id="revoke-submit">Révoquer cette licence</button>
+      </div>
+    </form>
+    <div class="error-box" id="revoke-error"></div>
+    <div class="result" id="revoke-result">
+      <p style="margin:0;color:var(--good);font-weight:600;">✓ Licence révoquée.</p>
     </div>
+  </div>
 
-  </section>
-
-  <section class="card log-card">
-    <h2>Journal des actions</h2>
-    <div class="log-list" id="log-list">
-      <div class="log-empty">Aucune action pour le moment.</div>
+  <!-- RELEASE -->
+  <div class="panel" id="panel-release">
+    <h2>Libérer tous les postes</h2>
+    <p class="hint">Désactive toutes les installations actives liées à cette clé, sans la révoquer — utile après une réinstallation Windows ou un changement de machine.</p>
+    <form id="form-release">
+      <div class="field">
+        <label for="release-value">Clé de licence</label>
+        <input id="release-value" class="mono" type="text" placeholder="OPTI-XXXX-XXXX-XXXX">
+      </div>
+      <div class="actions-row">
+        <button class="btn btn-accent" type="submit" id="release-submit">Libérer les postes</button>
+      </div>
+    </form>
+    <div class="error-box" id="release-error"></div>
+    <div class="result" id="release-result">
+      <p style="margin:0;color:var(--good);font-weight:600;">✓ Tous les postes ont été libérés.</p>
     </div>
-  </section>
+  </div>
 
-  <footer>OptiPC License Desk · appelle directement <span class="mono" id="footer-url">api.secureetech.com</span></footer>
+</section>
+
+<section class="card log-card">
+  <h2>Journal des actions</h2>
+  <div class="log-list" id="log-list">
+    <div class="log-empty">Aucune action pour le moment.</div>
+  </div>
+</section>
+
+<footer>OptiPC License Desk · appelle directement <span class="mono" id="footer-url">api.secureetech.com</span></footer>
 
 </div>
 
 <script>
 (function(){
-  "use strict";
+"use strict";
 
-  var els = {
-    apiUrl: document.getElementById('api-url'),
-    token: document.getElementById('admin-token'),
-    remember: document.getElementById('remember'),
-    btnTest: document.getElementById('btn-test'),
-    statusPill: document.getElementById('status-pill'),
-    logList: document.getElementById('log-list'),
-    footerUrl: document.getElementById('footer-url'),
-  };
+var els = {
+  apiUrl: document.getElementById('api-url'),
+  token: document.getElementById('admin-token'),
+  remember: document.getElementById('remember'),
+  btnTest: document.getElementById('btn-test'),
+  statusPill: document.getElementById('status-pill'),
+  logList: document.getElementById('log-list'),
+  footerUrl: document.getElementById('footer-url'),
+};
 
-  // ---- persistence (this browser only; never sent anywhere but the API above) ----
+// ---- persistence (this browser only; never sent anywhere but the API above) ----
+try {
+  var savedUrl = localStorage.getItem('opd_api_url');
+  var savedToken = localStorage.getItem('opd_admin_token');
+  if (savedUrl) els.apiUrl.value = savedUrl;
+  if (savedToken) { els.token.value = savedToken; els.remember.checked = true; }
+} catch (e) { /* stockage indisponible : on continue sans */ }
+
+function persist(){
   try {
-    var savedUrl = localStorage.getItem('opd_api_url');
-    var savedToken = localStorage.getItem('opd_admin_token');
-    if (savedUrl) els.apiUrl.value = savedUrl;
-    if (savedToken) { els.token.value = savedToken; els.remember.checked = true; }
-  } catch (e) { /* stockage indisponible : on continue sans */ }
-
-  function persist(){
-    try {
-      if (els.remember.checked) {
-        localStorage.setItem('opd_api_url', els.apiUrl.value.trim());
-        localStorage.setItem('opd_admin_token', els.token.value);
-      } else {
-        localStorage.removeItem('opd_api_url');
-        localStorage.removeItem('opd_admin_token');
-      }
-    } catch (e) { /* pas grave */ }
-  }
-  els.remember.addEventListener('change', persist);
-  els.apiUrl.addEventListener('change', function(){
-    els.footerUrl.textContent = (els.apiUrl.value || '').replace(/^https?:\/\//,'') || 'api.secureetech.com';
-    persist();
-  });
-  els.token.addEventListener('change', persist);
+    if (els.remember.checked) {
+      localStorage.setItem('opd_api_url', els.apiUrl.value.trim());
+      localStorage.setItem('opd_admin_token', els.token.value);
+    } else {
+      localStorage.removeItem('opd_api_url');
+      localStorage.removeItem('opd_admin_token');
+    }
+  } catch (e) { /* pas grave */ }
+}
+els.remember.addEventListener('change', persist);
+els.apiUrl.addEventListener('change', function(){
   els.footerUrl.textContent = (els.apiUrl.value || '').replace(/^https?:\/\//,'') || 'api.secureetech.com';
+  persist();
+});
+els.token.addEventListener('change', persist);
+els.footerUrl.textContent = (els.apiUrl.value || '').replace(/^https?:\/\//,'') || 'api.secureetech.com';
 
-  function baseUrl(){
-    return (els.apiUrl.value || '').trim().replace(/\/+$/,'');
-  }
+function baseUrl(){
+  return (els.apiUrl.value || '').trim().replace(/\/+$/,'');
+}
 
-  function log(message, ok){
-    var empty = els.logList.querySelector('.log-empty');
-    if (empty) empty.remove();
-    var row = document.createElement('div');
-    row.className = 'log-row';
-    var t = document.createElement('span');
-    t.className = 't';
-    var now = new Date();
-    t.textContent = now.toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
-    var m = document.createElement('span');
-    m.className = 'm';
-    m.style.color = ok === false ? 'var(--danger)' : (ok === true ? 'var(--good)' : 'var(--ink)');
-    m.textContent = message;
-    row.appendChild(t); row.appendChild(m);
-    els.logList.insertBefore(row, els.logList.firstChild);
-  }
+function log(message, ok){
+  var empty = els.logList.querySelector('.log-empty');
+  if (empty) empty.remove();
+  var row = document.createElement('div');
+  row.className = 'log-row';
+  var t = document.createElement('span');
+  t.className = 't';
+  var now = new Date();
+  t.textContent = now.toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  var m = document.createElement('span');
+  m.className = 'm';
+  m.style.color = ok === false ? 'var(--danger)' : (ok === true ? 'var(--good)' : 'var(--ink)');
+  m.textContent = message;
+  row.appendChild(t); row.appendChild(m);
+  els.logList.insertBefore(row, els.logList.firstChild);
+}
 
-  function setPill(state, text){
-    els.statusPill.className = state === 'good' ? 'pill-good' : (state === 'bad' ? 'pill-bad' : 'pill-idle');
-    els.statusPill.innerHTML = '<span class="dot"></span>' + text;
-  }
+function setPill(state, text){
+  els.statusPill.className = state === 'good' ? 'pill-good' : (state === 'bad' ? 'pill-bad' : 'pill-idle');
+  els.statusPill.innerHTML = '<span class="dot"></span>' + text;
+}
 
-  function escapeHtml(s){
-    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
-      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
-    });
-  }
+function escapeHtml(s){
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
 
-  // Jours restants avant la fin de periode payee (peut etre negatif si expiree).
-  function daysRemaining(endIso){
-    if (!endIso) return null;
-    var end = new Date(endIso).getTime();
-    if (isNaN(end)) return null;
-    return Math.ceil((end - Date.now()) / 86400000);
-  }
-  function remainingLabel(endIso){
-    var d = daysRemaining(endIso);
-    if (d === null) return '—';
-    if (d < 0) return 'expirée';
-    if (d === 0) return 'dernier jour';
-    return d + ' j';
-  }
-  function remainingColor(endIso){
-    var d = daysRemaining(endIso);
-    if (d === null) return 'var(--ink-soft)';
-    if (d < 0) return 'var(--danger)';
-    if (d <= 14) return 'var(--warn)';
-    return 'var(--good)';
-  }
+// Jours restants avant la fin de periode payee (peut etre negatif si expiree).
+function daysRemaining(endIso){
+  if (!endIso) return null;
+  var end = new Date(endIso).getTime();
+  if (isNaN(end)) return null;
+  return Math.ceil((end - Date.now()) / 86400000);
+}
+function remainingLabel(endIso){
+  var d = daysRemaining(endIso);
+  if (d === null) return '—';
+  if (d < 0) return 'expirée';
+  if (d === 0) return 'dernier jour';
+  return d + ' j';
+}
+function remainingColor(endIso){
+  var d = daysRemaining(endIso);
+  if (d === null) return 'var(--ink-soft)';
+  if (d < 0) return 'var(--danger)';
+  if (d <= 14) return 'var(--warn)';
+  return 'var(--good)';
+}
+// Date courte (jj/mm/aa) pour les colonnes serrees du tableau ; la date
+// complete reste disponible via l'attribut title au survol.
+function shortDate(iso){
+  if (!iso) return '—';
+  var d = new Date(iso);
+  if (isNaN(d.getTime())) return '—';
+  return d.toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit', year:'2-digit'});
+}
+function fullDate(iso){
+  if (!iso) return '';
+  var d = new Date(iso);
+  if (isNaN(d.getTime())) return '';
+  return d.toLocaleDateString('fr-FR', {day:'numeric', month:'long', year:'numeric'});
+}
+// Fusionne "fin de periode" + "temps restant" dans une seule cellule
+// compacte : la date complete et le detail apparaissent au survol (title),
+// ce qui liberait la place necessaire pour la cle complete et le telephone.
+function periodCellHtml(endIso){
+  var short = shortDate(endIso);
+  var full = fullDate(endIso);
+  var remaining = remainingLabel(endIso);
+  var color = remainingColor(endIso);
+  var title = full ? ('Fin de période : ' + full + (remaining !== '—' ? ' (' + remaining + ')' : '')) : '';
+  return '<span title="' + escapeHtml(title) + '">' + escapeHtml(short) + '</span> ' +
+    '<span style="color:' + color + ';font-weight:600;" title="' + escapeHtml(title) + '">(' + escapeHtml(remaining) + ')</span>';
+}
 
-  // Affiche la cle complete quand le serveur peut la redonner (LICENSE_ENC_KEY
-  // configure + licence emise apres cette mise a jour), avec un bouton copier ;
-  // sinon retombe sur le prefixe, avec une note expliquant pourquoi.
-  var keyCopyN = 0;
-  function keyCellHtml(lic){
-    if (lic.key_full) {
-      var id = 'kcp-' + (++keyCopyN);
-      return '<span class="mono">' + escapeHtml(lic.key_full) + '</span> ' +
-             '<button type="button" class="btn btn-ghost btn-sm" data-copy-key="' + escapeHtml(lic.key_full) + '" id="' + id + '">Copier</button>';
-    }
-    return '<span class="mono" title="Clé complète non disponible (licence émise avant l\'activation du chiffrement, ou LICENSE_ENC_KEY absente sur le serveur)">' +
-           escapeHtml(lic.key_prefix) + '…</span>';
+// Affiche la cle complete quand le serveur peut la redonner (LICENSE_ENC_KEY
+// configure + licence emise apres cette mise a jour), avec un bouton copier ;
+// sinon retombe sur le prefixe, avec une note expliquant pourquoi.
+var keyCopyN = 0;
+function keyCellHtml(lic){
+  if (lic.key_full) {
+    var id = 'kcp-' + (++keyCopyN);
+    return '<span class="mono">' + escapeHtml(lic.key_full) + '</span> ' +
+      '<button type="button" class="btn btn-ghost btn-sm" data-copy-key="' + escapeHtml(lic.key_full) + '" id="' + id + '">Copier</button>';
   }
-  function wireKeyCopyButtons(root){
-    root.querySelectorAll('[data-copy-key]').forEach(function(b){
-      b.addEventListener('click', function(){
-        var val = this.getAttribute('data-copy-key');
-        navigator.clipboard && navigator.clipboard.writeText(val).then(function(){
-          var old = b.textContent; b.textContent = 'Copié !';
-          setTimeout(function(){ b.textContent = old; }, 1500);
-        });
+  return '<span class="mono" title="Clé complète non disponible (licence émise avant l\'activation du chiffrement, ou LICENSE_ENC_KEY absente sur le serveur)">' +
+    escapeHtml(lic.key_prefix) + '…</span>';
+}
+function wireKeyCopyButtons(root){
+  root.querySelectorAll('[data-copy-key]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var val = this.getAttribute('data-copy-key');
+      navigator.clipboard && navigator.clipboard.writeText(val).then(function(){
+        var old = b.textContent; b.textContent = 'Copié !';
+        setTimeout(function(){ b.textContent = old; }, 1500);
       });
     });
-  }
-
-  // ---- revocation / liberation, partagees entre les formulaires et les
-  // boutons places directement sur une ligne d'historique ou de recherche ----
-  async function revokeLicense(target, label){
-    if (!confirm('Révoquer définitivement la licence de ' + label + ' ?\nLe client ne pourra plus l\'utiliser.')) return false;
-    await api('/v1/admin/revoke', {method:'POST', body: target});
-    log('Licence de ' + label + ' révoquée.', true);
-    return true;
-  }
-  async function releaseSeatsFor(target, label){
-    await api('/v1/admin/release-seats', {method:'POST', body: target});
-    log('Postes libérés pour ' + label + '.', true);
-    return true;
-  }
-
-  async function api(path, opts){
-    opts = opts || {};
-    var url = baseUrl() + path;
-    var headers = Object.assign({'Content-Type':'application/json'}, opts.headers || {});
-    if (els.token.value) headers['x-admin-token'] = els.token.value;
-    var res;
-    try {
-      res = await fetch(url, {
-        method: opts.method || 'GET',
-        headers: headers,
-        body: opts.body ? JSON.stringify(opts.body) : undefined,
-      });
-    } catch (e) {
-      throw new Error('Impossible de joindre ' + url + ' — vérifie l\'URL de l\'API et ta connexion.');
-    }
-    var data = null;
-    try { data = await res.json(); } catch (e) { /* pas de corps JSON */ }
-    if (!res.ok) {
-      var msg = friendlyError(res.status, data);
-      throw new Error(msg);
-    }
-    return data;
-  }
-
-  function friendlyError(status, data){
-    var code = data && data.error;
-    if (status === 401 || code === 'unauthorized') return 'Jeton admin invalide — vérifie l\'ADMIN_TOKEN.';
-    if (status === 503 || code === 'admin_disabled') return 'ADMIN_TOKEN non défini sur Railway : les routes admin sont désactivées côté serveur.';
-    if (status === 404 || code === 'not_found') return 'Aucune licence trouvée pour cette recherche.';
-    if (status === 400 && code === 'bad_key_format') return 'Format de clé invalide.';
-    if (status === 400 && code === 'missing_query') return 'Indique une clé ou un email.';
-    return (data && (data.message || data.error)) || ('Erreur ' + status);
-  }
-
-  // ---- test connection ----
-  els.btnTest.addEventListener('click', async function(){
-    setPill('idle', 'test en cours…');
-    try {
-      var res = await fetch(baseUrl() + '/v1/health');
-      if (res.ok) { setPill('good', 'API en ligne'); log('Connexion à ' + baseUrl() + ' réussie.', true); }
-      else { setPill('bad', 'API injoignable (' + res.status + ')'); log('L\'API a répondu avec une erreur ' + res.status + '.', false); }
-    } catch (e) {
-      setPill('bad', 'API injoignable');
-      log('Impossible de joindre ' + baseUrl() + '.', false);
-    }
   });
+}
 
-  // ---- tabs ----
-  var tabs = document.querySelectorAll('nav.tabs button');
-  tabs.forEach(function(btn){
-    btn.addEventListener('click', function(){
-      tabs.forEach(function(b){ b.setAttribute('aria-selected','false'); });
-      btn.setAttribute('aria-selected','true');
-      document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
-      document.getElementById('panel-' + btn.dataset.panel).classList.add('active');
-      if (btn.dataset.panel === 'history' && !historyState.loaded) fetchHistory();
+// ---- revocation / liberation, partagees entre les formulaires et les
+// boutons places directement sur une ligne d'historique ou de recherche ----
+async function revokeLicense(target, label){
+  if (!confirm('Révoquer définitivement la licence de ' + label + ' ?\nLe client ne pourra plus l\'utiliser.')) return false;
+  await api('/v1/admin/revoke', {method:'POST', body: target});
+  log('Licence de ' + label + ' révoquée.', true);
+  return true;
+}
+async function releaseSeatsFor(target, label){
+  await api('/v1/admin/release-seats', {method:'POST', body: target});
+  log('Postes libérés pour ' + label + '.', true);
+  return true;
+}
+
+async function api(path, opts){
+  opts = opts || {};
+  var url = baseUrl() + path;
+  var headers = Object.assign({'Content-Type':'application/json'}, opts.headers || {});
+  if (els.token.value) headers['x-admin-token'] = els.token.value;
+  var res;
+  try {
+    res = await fetch(url, {
+      method: opts.method || 'GET',
+      headers: headers,
+      body: opts.body ? JSON.stringify(opts.body) : undefined,
     });
-  });
-
-  function showError(id, msg){
-    var box = document.getElementById(id);
-    box.textContent = msg;
-    box.classList.add('show');
+  } catch (e) {
+    throw new Error('Impossible de joindre ' + url + ' — vérifie l\'URL de l\'API et ta connexion.');
   }
-  function hideError(id){
-    document.getElementById(id).classList.remove('show');
+  var data = null;
+  try { data = await res.json(); } catch (e) { /* pas de corps JSON */ }
+  if (!res.ok) {
+    var msg = friendlyError(res.status, data);
+    throw new Error(msg);
   }
+  return data;
+}
 
-  // ---- issue ----
-  document.getElementById('form-issue').addEventListener('submit', async function(ev){
-    ev.preventDefault();
-    hideError('issue-error');
-    document.getElementById('issue-result').classList.remove('show');
-    var btn = document.getElementById('issue-submit');
-    btn.disabled = true; btn.textContent = 'Génération…';
-    try {
-      var body = {
-        email: document.getElementById('issue-email').value.trim(),
-        name: document.getElementById('issue-name').value.trim(),
-        months: parseInt(document.getElementById('issue-months').value, 10) || 12,
-        seats: parseInt(document.getElementById('issue-seats').value, 10) || 1,
-        notes: document.getElementById('issue-notes').value.trim(),
-      };
-      var data = await api('/v1/admin/issue', {method:'POST', body: body});
-      document.getElementById('issue-key').textContent = data.key;
-      document.getElementById('issue-seats-out').textContent = data.seats_max + (data.seats_max > 1 ? ' postes' : ' poste');
-      document.getElementById('issue-end-out').textContent = new Date(data.current_period_end).toLocaleDateString('fr-FR', {year:'numeric',month:'long',day:'numeric'});
-      document.getElementById('issue-result').classList.add('show');
-      log('Licence émise' + (body.email ? ' pour ' + body.email : '') + ' — ' + body.months + ' mois, ' + body.seats + ' poste(s).', true);
-    } catch (e) {
-      showError('issue-error', e.message);
-      log('Échec d\'émission de licence : ' + e.message, false);
-    } finally {
-      btn.disabled = false; btn.textContent = 'Générer la clé';
-    }
-  });
-  document.getElementById('issue-copy').addEventListener('click', function(){
-    var key = document.getElementById('issue-key').textContent;
-    if (!key || key === '—') return;
-    navigator.clipboard && navigator.clipboard.writeText(key).then(function(){
-      var b = document.getElementById('issue-copy');
-      var old = b.textContent; b.textContent = 'Copié !';
-      setTimeout(function(){ b.textContent = old; }, 1500);
-    });
-  });
+function friendlyError(status, data){
+  var code = data && data.error;
+  if (status === 401 || code === 'unauthorized') return 'Jeton admin invalide — vérifie l\'ADMIN_TOKEN.';
+  if (status === 503 || code === 'admin_disabled') return 'ADMIN_TOKEN non défini sur Railway : les routes admin sont désactivées côté serveur.';
+  if (status === 404 || code === 'not_found') return 'Aucune licence trouvée pour cette recherche.';
+  if (status === 400 && code === 'bad_key_format') return 'Format de clé invalide.';
+  if (status === 400 && code === 'missing_query') return 'Indique une clé ou un email.';
+  return (data && (data.message || data.error)) || ('Erreur ' + status);
+}
 
-  // ---- lookup ----
-  var lookupLabel = document.getElementById('lookup-value-label');
-  var lookupInput = document.getElementById('lookup-value');
-  document.querySelectorAll('input[name="lookup-mode"]').forEach(function(r){
-    r.addEventListener('change', function(){
-      if (this.value === 'key') { lookupLabel.textContent = 'Clé de licence'; lookupInput.placeholder = 'OPTI-XXXX-XXXX-XXXX'; }
-      else { lookupLabel.textContent = 'Email du client'; lookupInput.placeholder = 'client@exemple.com'; }
-    });
-  });
-
-  function statusBadge(status){
-    var cls = status === 'active' ? 'badge-active' : (status === 'revoked' ? 'badge-revoked' : 'badge-other');
-    return '<span class="badge ' + cls + '">' + status + '</span>';
+// ---- test connection ----
+els.btnTest.addEventListener('click', async function(){
+  setPill('idle', 'test en cours…');
+  try {
+    var res = await fetch(baseUrl() + '/v1/health');
+    if (res.ok) { setPill('good', 'API en ligne'); log('Connexion à ' + baseUrl() + ' réussie.', true); }
+    else { setPill('bad', 'API injoignable (' + res.status + ')'); log('L\'API a répondu avec une erreur ' + res.status + '.', false); }
+  } catch (e) {
+    setPill('bad', 'API injoignable');
+    log('Impossible de joindre ' + baseUrl() + '.', false);
   }
+});
 
-  document.getElementById('form-lookup').addEventListener('submit', async function(ev){
-    ev.preventDefault();
-    hideError('lookup-error');
-    var resultBox = document.getElementById('lookup-result');
-    resultBox.style.display = 'none';
-    resultBox.innerHTML = '';
-    var btn = document.getElementById('lookup-submit');
-    btn.disabled = true; btn.textContent = 'Recherche…';
-    try {
-      var mode = document.querySelector('input[name="lookup-mode"]:checked').value;
-      var value = lookupInput.value.trim();
-      if (!value) throw new Error('Renseigne une valeur à rechercher.');
-      var qs = mode === 'key' ? ('key=' + encodeURIComponent(value)) : ('email=' + encodeURIComponent(value));
-      var data = await api('/v1/admin/lookup?' + qs);
-      (data.results || []).forEach(function(lic){
-        var card = document.createElement('div');
-        card.className = 'lic-card';
-        var actsRows = (lic.activations || []).map(function(a){
-          return '<tr><td>' + escapeHtml(a.hostname || '—') + '</td><td>' + escapeHtml(a.os || '—') + '</td><td>' + escapeHtml(a.app_version || '—') + '</td>' +
-                 '<td>' + (a.active ? 'oui' : 'non') + '</td><td>' + (a.last_seen ? new Date(a.last_seen).toLocaleDateString('fr-FR') : '—') + '</td></tr>';
-        }).join('');
-        var label = lic.customer_name || lic.email || (lic.key_prefix + '…');
-        card.innerHTML =
-          '<div class="lic-head"><span class="key mono" style="font-size:14px;">' + keyCellHtml(lic) + '</span>' + statusBadge(lic.status) + '</div>' +
-          '<div class="kv">' +
-            '<div><span class="k">Client</span><span class="v">' + escapeHtml(lic.customer_name || '—') + '</span></div>' +
-            '<div><span class="k">Email</span><span class="v" style="font-weight:500;">' + escapeHtml(lic.email || '—') + '</span></div>' +
-            '<div><span class="k">Formule</span><span class="v">' + escapeHtml(lic.billing_period || '—') + '</span></div>' +
-            '<div><span class="k">Postes</span><span class="v">' + (lic.seats_used ?? '—') + ' / ' + (lic.seats_max ?? '—') + '</span></div>' +
-            '<div><span class="k">Fin de période</span><span class="v">' + (lic.current_period_end ? new Date(lic.current_period_end).toLocaleDateString('fr-FR') : '—') + '</span></div>' +
-            '<div><span class="k">Temps restant</span><span class="v" style="color:' + remainingColor(lic.current_period_end) + ';">' + remainingLabel(lic.current_period_end) + '</span></div>' +
-            '<div><span class="k">Créée le</span><span class="v" style="font-weight:500;">' + (lic.created_at ? new Date(lic.created_at).toLocaleDateString('fr-FR') : '—') + '</span></div>' +
-          '</div>' +
-          (actsRows ? ('<div class="acts-wrap"><table class="acts"><thead><tr><th>Poste</th><th>OS</th><th>Version</th><th>Actif</th><th>Dernier contact</th></tr></thead><tbody>' + actsRows + '</tbody></table></div>')
-                     : '<p class="hint" style="margin:0;">Aucune activation enregistrée pour cette clé.</p>') +
-          '<div class="row-actions">' +
-            (lic.status !== 'revoked' ? '<button type="button" class="btn btn-danger btn-sm" data-act="revoke">Révoquer</button>' : '') +
-            '<button type="button" class="btn btn-ghost btn-sm" data-act="release">Libérer les postes</button>' +
-          '</div>';
-        card.querySelector('[data-act="revoke"]') && card.querySelector('[data-act="revoke"]').addEventListener('click', async function(btn){
-          try {
-            var ok = await revokeLicense({id: lic.id}, label);
-            if (ok) document.getElementById('lookup-submit').click();
-          } catch (e) { log('Échec de révocation : ' + e.message, false); alert(e.message); }
-        });
-        card.querySelector('[data-act="release"]').addEventListener('click', async function(){
-          try {
-            await releaseSeatsFor({id: lic.id}, label);
-            document.getElementById('lookup-submit').click();
-          } catch (e) { log('Échec de libération des postes : ' + e.message, false); alert(e.message); }
-        });
-        wireKeyCopyButtons(card);
-        resultBox.appendChild(card);
-      });
-      resultBox.style.display = 'flex';
-      log('Recherche par ' + (mode === 'key' ? 'clé' : 'email') + ' — ' + (data.results || []).length + ' résultat(s).', true);
-    } catch (e) {
-      showError('lookup-error', e.message);
-      log('Échec de recherche : ' + e.message, false);
-    } finally {
-      btn.disabled = false; btn.textContent = 'Rechercher';
-    }
+// ---- tabs ----
+var tabs = document.querySelectorAll('nav.tabs button');
+tabs.forEach(function(btn){
+  btn.addEventListener('click', function(){
+    tabs.forEach(function(b){ b.setAttribute('aria-selected','false'); });
+    btn.setAttribute('aria-selected','true');
+    document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+    document.getElementById('panel-' + btn.dataset.panel).classList.add('active');
+    if (btn.dataset.panel === 'history' && !historyState.loaded) fetchHistory();
   });
+});
 
-  // ---- revoke ----
-  document.getElementById('form-revoke').addEventListener('submit', async function(ev){
-    ev.preventDefault();
-    hideError('revoke-error');
-    document.getElementById('revoke-result').classList.remove('show');
-    var value = document.getElementById('revoke-value').value.trim();
-    if (!value) { showError('revoke-error', 'Renseigne une clé de licence.'); return; }
-    var btn = document.getElementById('revoke-submit');
-    try {
-      var ok = await revokeLicense({key: value}, value);
-      if (!ok) return;
-      btn.disabled = true; btn.textContent = 'Révocation…';
-      document.getElementById('revoke-result').classList.add('show');
-      document.getElementById('revoke-value').value = '';
-      if (historyState.loaded) fetchHistory();
-    } catch (e) {
-      showError('revoke-error', e.message);
-      log('Échec de révocation : ' + e.message, false);
-    } finally {
-      btn.disabled = false; btn.textContent = 'Révoquer cette licence';
-    }
+function showError(id, msg){
+  var box = document.getElementById(id);
+  box.textContent = msg;
+  box.classList.add('show');
+}
+function hideError(id){
+  document.getElementById(id).classList.remove('show');
+}
+
+// ---- issue ----
+document.getElementById('form-issue').addEventListener('submit', async function(ev){
+  ev.preventDefault();
+  hideError('issue-error');
+  document.getElementById('issue-result').classList.remove('show');
+  var btn = document.getElementById('issue-submit');
+  btn.disabled = true; btn.textContent = 'Génération…';
+  try {
+    var body = {
+      email: document.getElementById('issue-email').value.trim(),
+      name: document.getElementById('issue-name').value.trim(),
+      phone: document.getElementById('issue-phone').value.trim(),
+      months: parseInt(document.getElementById('issue-months').value, 10) || 12,
+      seats: parseInt(document.getElementById('issue-seats').value, 10) || 1,
+      notes: document.getElementById('issue-notes').value.trim(),
+    };
+    var data = await api('/v1/admin/issue', {method:'POST', body: body});
+    document.getElementById('issue-key').textContent = data.key;
+    document.getElementById('issue-seats-out').textContent = data.seats_max + (data.seats_max > 1 ? ' postes' : ' poste');
+    document.getElementById('issue-phone-out').textContent = body.phone || '—';
+    document.getElementById('issue-end-out').textContent = new Date(data.current_period_end).toLocaleDateString('fr-FR', {year:'numeric',month:'long',day:'numeric'});
+    document.getElementById('issue-result').classList.add('show');
+    log('Licence émise' + (body.email ? ' pour ' + body.email : '') + ' — ' + body.months + ' mois, ' + body.seats + ' poste(s).', true);
+  } catch (e) {
+    showError('issue-error', e.message);
+    log('Échec d\'émission de licence : ' + e.message, false);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Générer la clé';
+  }
+});
+document.getElementById('issue-copy').addEventListener('click', function(){
+  var key = document.getElementById('issue-key').textContent;
+  if (!key || key === '—') return;
+  navigator.clipboard && navigator.clipboard.writeText(key).then(function(){
+    var b = document.getElementById('issue-copy');
+    var old = b.textContent; b.textContent = 'Copié !';
+    setTimeout(function(){ b.textContent = old; }, 1500);
   });
+});
 
-  // ---- release seats ----
-  document.getElementById('form-release').addEventListener('submit', async function(ev){
-    ev.preventDefault();
-    hideError('release-error');
-    document.getElementById('release-result').classList.remove('show');
-    var value = document.getElementById('release-value').value.trim();
-    if (!value) { showError('release-error', 'Renseigne une clé de licence.'); return; }
-    var btn = document.getElementById('release-submit');
-    btn.disabled = true; btn.textContent = 'Libération…';
-    try {
-      await releaseSeatsFor({key: value}, value);
-      document.getElementById('release-result').classList.add('show');
-      document.getElementById('release-value').value = '';
-      if (historyState.loaded) fetchHistory();
-    } catch (e) {
-      showError('release-error', e.message);
-      log('Échec de libération des postes : ' + e.message, false);
-    } finally {
-      btn.disabled = false; btn.textContent = 'Libérer les postes';
-    }
+// ---- lookup ----
+var lookupLabel = document.getElementById('lookup-value-label');
+var lookupInput = document.getElementById('lookup-value');
+document.querySelectorAll('input[name="lookup-mode"]').forEach(function(r){
+  r.addEventListener('change', function(){
+    if (this.value === 'key') { lookupLabel.textContent = 'Clé de licence'; lookupInput.placeholder = 'OPTI-XXXX-XXXX-XXXX'; }
+    else { lookupLabel.textContent = 'Email du client'; lookupInput.placeholder = 'client@exemple.com'; }
   });
+});
 
-  // ---- history (toutes les licences) ----
-  var historyState = { loaded:false, limit:50, offset:0, total:0, status:'all', search:'' };
-  var historyBody = document.getElementById('history-body');
-  var historySearchTimer = null;
+function statusBadge(status){
+  var cls = status === 'active' ? 'badge-active' : (status === 'revoked' ? 'badge-revoked' : 'badge-other');
+  return '<span class="badge ' + cls + '">' + status + '</span>';
+}
 
-  function renderHistoryRows(rows){
-    if (!rows.length) {
-      historyBody.innerHTML = '<tr><td colspan="9" class="hint" style="padding:14px 0;">Aucune licence trouvée.</td></tr>';
-      return;
-    }
-    historyBody.innerHTML = rows.map(function(lic){
+document.getElementById('form-lookup').addEventListener('submit', async function(ev){
+  ev.preventDefault();
+  hideError('lookup-error');
+  var resultBox = document.getElementById('lookup-result');
+  resultBox.style.display = 'none';
+  resultBox.innerHTML = '';
+  var btn = document.getElementById('lookup-submit');
+  btn.disabled = true; btn.textContent = 'Recherche…';
+  try {
+    var mode = document.querySelector('input[name="lookup-mode"]:checked').value;
+    var value = lookupInput.value.trim();
+    if (!value) throw new Error('Renseigne une valeur à rechercher.');
+    var qs = mode === 'key' ? ('key=' + encodeURIComponent(value)) : ('email=' + encodeURIComponent(value));
+    var data = await api('/v1/admin/lookup?' + qs);
+    (data.results || []).forEach(function(lic){
+      var card = document.createElement('div');
+      card.className = 'lic-card';
+      var actsRows = (lic.activations || []).map(function(a){
+        return '<tr><td>' + escapeHtml(a.hostname || '—') + '</td><td>' + escapeHtml(a.os || '—') + '</td><td>' + escapeHtml(a.app_version || '—') + '</td>' +
+          '<td>' + (a.active ? 'oui' : 'non') + '</td><td>' + (a.last_seen ? new Date(a.last_seen).toLocaleDateString('fr-FR') : '—') + '</td></tr>';
+      }).join('');
       var label = lic.customer_name || lic.email || (lic.key_prefix + '…');
-      var who = '<div style="font-weight:600;">' + escapeHtml(lic.customer_name || '—') + '</div>' +
-                '<div class="mono" style="font-size:12px;color:var(--ink-soft);">' + escapeHtml(lic.email || '—') + '</div>';
-      var actions = '<div class="row-actions">' +
-        (lic.status !== 'revoked' ? '<button type="button" class="btn btn-danger btn-sm" data-hist-act="revoke" data-id="' + lic.id + '" data-label="' + escapeHtml(label) + '">Révoquer</button>' : '') +
-        '<button type="button" class="btn btn-ghost btn-sm" data-hist-act="release" data-id="' + lic.id + '" data-label="' + escapeHtml(label) + '">Libérer</button>' +
-      '</div>';
-      return '<tr>' +
-        '<td>' + who + '</td>' +
-        '<td class="nowrap">' + keyCellHtml(lic) + '</td>' +
-        '<td>' + statusBadge(lic.status) + '</td>' +
-        '<td class="nowrap">' + escapeHtml(lic.billing_period || '—') + '</td>' +
-        '<td class="nowrap">' + (lic.seats_used ?? '—') + ' / ' + (lic.seats_max ?? '—') + '</td>' +
-        '<td class="nowrap">' + (lic.current_period_end ? new Date(lic.current_period_end).toLocaleDateString('fr-FR') : '—') + '</td>' +
-        '<td class="nowrap" style="color:' + remainingColor(lic.current_period_end) + ';font-weight:600;">' + remainingLabel(lic.current_period_end) + '</td>' +
-        '<td class="nowrap">' + (lic.created_at ? new Date(lic.created_at).toLocaleDateString('fr-FR') : '—') + '</td>' +
-        '<td>' + actions + '</td>' +
-      '</tr>';
-    }).join('');
-
-    wireKeyCopyButtons(historyBody);
-    historyBody.querySelectorAll('[data-hist-act]').forEach(function(b){
-      b.addEventListener('click', async function(){
-        var id = this.getAttribute('data-id');
-        var label = this.getAttribute('data-label');
+      card.innerHTML =
+        '<div class="lic-head"><span class="key mono" style="font-size:14px;">' + keyCellHtml(lic) + '</span>' + statusBadge(lic.status) + '</div>' +
+        '<div class="kv">' +
+          '<div><span class="k">Client</span><span class="v">' + escapeHtml(lic.customer_name || '—') + '</span></div>' +
+          '<div><span class="k">Email</span><span class="v" style="font-weight:500;">' + escapeHtml(lic.email || '—') + '</span></div>' +
+          '<div><span class="k">Téléphone</span><span class="v mono" style="font-weight:500;">' + escapeHtml(lic.phone || '—') + '</span></div>' +
+          '<div><span class="k">Formule</span><span class="v">' + escapeHtml(lic.billing_period || '—') + '</span></div>' +
+          '<div><span class="k">Postes</span><span class="v">' + (lic.seats_used ?? '—') + ' / ' + (lic.seats_max ?? '—') + '</span></div>' +
+          '<div><span class="k">Fin de période</span><span class="v">' + (lic.current_period_end ? new Date(lic.current_period_end).toLocaleDateString('fr-FR') : '—') + '</span></div>' +
+          '<div><span class="k">Temps restant</span><span class="v" style="color:' + remainingColor(lic.current_period_end) + ';">' + remainingLabel(lic.current_period_end) + '</span></div>' +
+          '<div><span class="k">Créée le</span><span class="v" style="font-weight:500;">' + (lic.created_at ? new Date(lic.created_at).toLocaleDateString('fr-FR') : '—') + '</span></div>' +
+        '</div>' +
+        (actsRows ? ('<div class="acts-wrap"><table class="acts"><thead><tr><th>Poste</th><th>OS</th><th>Version</th><th>Actif</th><th>Dernier contact</th></tr></thead><tbody>' + actsRows + '</tbody></table></div>')
+                   : '<p class="hint" style="margin:0;">Aucune activation enregistrée pour cette clé.</p>') +
+        '<div class="row-actions">' +
+          (lic.status !== 'revoked' ? '<button type="button" class="btn btn-danger btn-sm" data-act="revoke">Révoquer</button>' : '') +
+          '<button type="button" class="btn btn-ghost btn-sm" data-act="release">Libérer les postes</button>' +
+        '</div>';
+      card.querySelector('[data-act="revoke"]') && card.querySelector('[data-act="revoke"]').addEventListener('click', async function(btn){
         try {
-          if (this.getAttribute('data-hist-act') === 'revoke') await revokeLicense({id:id}, label);
-          else await releaseSeatsFor({id:id}, label);
-          fetchHistory();
-        } catch (e) {
-          log('Échec : ' + e.message, false);
-          alert(e.message);
-        }
+          var ok = await revokeLicense({id: lic.id}, label);
+          if (ok) document.getElementById('lookup-submit').click();
+        } catch (e) { log('Échec de révocation : ' + e.message, false); alert(e.message); }
       });
+      card.querySelector('[data-act="release"]').addEventListener('click', async function(){
+        try {
+          await releaseSeatsFor({id: lic.id}, label);
+          document.getElementById('lookup-submit').click();
+        } catch (e) { log('Échec de libération des postes : ' + e.message, false); alert(e.message); }
+      });
+      wireKeyCopyButtons(card);
+      resultBox.appendChild(card);
     });
+    resultBox.style.display = 'flex';
+    log('Recherche par ' + (mode === 'key' ? 'clé' : 'email') + ' — ' + (data.results || []).length + ' résultat(s).', true);
+  } catch (e) {
+    showError('lookup-error', e.message);
+    log('Échec de recherche : ' + e.message, false);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Rechercher';
   }
+});
 
-  async function fetchHistory(){
-    hideError('history-error');
-    historyBody.innerHTML = '<tr><td colspan="9" class="hint" style="padding:14px 0;">Chargement…</td></tr>';
-    try {
-      var qs = 'limit=' + historyState.limit + '&offset=' + historyState.offset +
-                '&status=' + encodeURIComponent(historyState.status) +
-                (historyState.search ? '&q=' + encodeURIComponent(historyState.search) : '');
-      var data = await api('/v1/admin/licenses?' + qs);
-      historyState.loaded = true;
-      historyState.total = data.total || 0;
-      renderHistoryRows(data.results || []);
-      var from = data.results.length ? historyState.offset + 1 : 0;
-      var to = historyState.offset + (data.results ? data.results.length : 0);
-      document.getElementById('history-count').textContent = historyState.total
-        ? (from + '–' + to + ' sur ' + historyState.total)
-        : 'Aucune licence.';
-      document.getElementById('history-prev').disabled = historyState.offset <= 0;
-      document.getElementById('history-next').disabled = to >= historyState.total;
-    } catch (e) {
-      historyBody.innerHTML = '<tr><td colspan="9" class="hint" style="padding:14px 0;">—</td></tr>';
-      showError('history-error', e.message);
-      log('Échec de chargement de l\'historique : ' + e.message, false);
-    }
+// ---- revoke ----
+document.getElementById('form-revoke').addEventListener('submit', async function(ev){
+  ev.preventDefault();
+  hideError('revoke-error');
+  document.getElementById('revoke-result').classList.remove('show');
+  var value = document.getElementById('revoke-value').value.trim();
+  if (!value) { showError('revoke-error', 'Renseigne une clé de licence.'); return; }
+  var btn = document.getElementById('revoke-submit');
+  try {
+    var ok = await revokeLicense({key: value}, value);
+    if (!ok) return;
+    btn.disabled = true; btn.textContent = 'Révocation…';
+    document.getElementById('revoke-result').classList.add('show');
+    document.getElementById('revoke-value').value = '';
+    if (historyState.loaded) fetchHistory();
+  } catch (e) {
+    showError('revoke-error', e.message);
+    log('Échec de révocation : ' + e.message, false);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Révoquer cette licence';
   }
+});
 
-  document.getElementById('history-refresh').addEventListener('click', function(){ historyState.offset = 0; fetchHistory(); });
-  document.getElementById('history-status').addEventListener('change', function(){
-    historyState.status = this.value; historyState.offset = 0; fetchHistory();
+// ---- release seats ----
+document.getElementById('form-release').addEventListener('submit', async function(ev){
+  ev.preventDefault();
+  hideError('release-error');
+  document.getElementById('release-result').classList.remove('show');
+  var value = document.getElementById('release-value').value.trim();
+  if (!value) { showError('release-error', 'Renseigne une clé de licence.'); return; }
+  var btn = document.getElementById('release-submit');
+  btn.disabled = true; btn.textContent = 'Libération…';
+  try {
+    await releaseSeatsFor({key: value}, value);
+    document.getElementById('release-result').classList.add('show');
+    document.getElementById('release-value').value = '';
+    if (historyState.loaded) fetchHistory();
+  } catch (e) {
+    showError('release-error', e.message);
+    log('Échec de libération des postes : ' + e.message, false);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Libérer les postes';
+  }
+});
+
+// ---- history (toutes les licences) ----
+var historyState = { loaded:false, limit:50, offset:0, total:0, status:'all', search:'' };
+var historyBody = document.getElementById('history-body');
+var historySearchTimer = null;
+
+function renderHistoryRows(rows){
+  if (!rows.length) {
+    historyBody.innerHTML = '<tr><td colspan="9" class="hint" style="padding:14px 0;">Aucune licence trouvée.</td></tr>';
+    return;
+  }
+  historyBody.innerHTML = rows.map(function(lic){
+    var label = lic.customer_name || lic.email || (lic.key_prefix + '…');
+    var who = '<div style="font-weight:600;">' + escapeHtml(lic.customer_name || '—') + '</div>' +
+      '<div class="mono" style="font-size:12px;color:var(--ink-soft);">' + escapeHtml(lic.email || '—') + '</div>';
+    var actions = '<div class="row-actions">' +
+      (lic.status !== 'revoked' ? '<button type="button" class="btn btn-danger btn-sm" data-hist-act="revoke" data-id="' + lic.id + '" data-label="' + escapeHtml(label) + '">Révoquer</button>' : '') +
+      '<button type="button" class="btn btn-ghost btn-sm" data-hist-act="release" data-id="' + lic.id + '" data-label="' + escapeHtml(label) + '">Libérer</button>' +
+    '</div>';
+    return '<tr>' +
+      '<td>' + who + '</td>' +
+      '<td class="nowrap">' + keyCellHtml(lic) + '</td>' +
+      '<td class="mono nowrap">' + escapeHtml(lic.phone || '—') + '</td>' +
+      '<td>' + statusBadge(lic.status) + '</td>' +
+      '<td class="nowrap">' + escapeHtml(lic.billing_period || '—') + '</td>' +
+      '<td class="nowrap">' + (lic.seats_used ?? '—') + ' / ' + (lic.seats_max ?? '—') + '</td>' +
+      '<td class="nowrap">' + periodCellHtml(lic.current_period_end) + '</td>' +
+      '<td class="nowrap" title="' + escapeHtml(fullDate(lic.created_at)) + '">' + shortDate(lic.created_at) + '</td>' +
+      '<td>' + actions + '</td>' +
+    '</tr>';
+  }).join('');
+
+  wireKeyCopyButtons(historyBody);
+  historyBody.querySelectorAll('[data-hist-act]').forEach(function(b){
+    b.addEventListener('click', async function(){
+      var id = this.getAttribute('data-id');
+      var label = this.getAttribute('data-label');
+      try {
+        if (this.getAttribute('data-hist-act') === 'revoke') await revokeLicense({id:id}, label);
+        else await releaseSeatsFor({id:id}, label);
+        fetchHistory();
+      } catch (e) {
+        log('Échec : ' + e.message, false);
+        alert(e.message);
+      }
+    });
   });
-  document.getElementById('history-search').addEventListener('input', function(){
-    var v = this.value.trim();
-    clearTimeout(historySearchTimer);
-    historySearchTimer = setTimeout(function(){
-      historyState.search = v; historyState.offset = 0; fetchHistory();
-    }, 350);
-  });
-  document.getElementById('history-prev').addEventListener('click', function(){
-    historyState.offset = Math.max(0, historyState.offset - historyState.limit);
+}
+
+async function fetchHistory(){
+  hideError('history-error');
+  historyBody.innerHTML = '<tr><td colspan="9" class="hint" style="padding:14px 0;">Chargement…</td></tr>';
+  try {
+    var qs = 'limit=' + historyState.limit + '&offset=' + historyState.offset +
+      '&status=' + encodeURIComponent(historyState.status) +
+      (historyState.search ? '&q=' + encodeURIComponent(historyState.search) : '');
+    var data = await api('/v1/admin/licenses?' + qs);
+    historyState.loaded = true;
+    historyState.total = data.total || 0;
+    renderHistoryRows(data.results || []);
+    var from = data.results.length ? historyState.offset + 1 : 0;
+    var to = historyState.offset + (data.results ? data.results.length : 0);
+    document.getElementById('history-count').textContent = historyState.total
+      ? (from + '–' + to + ' sur ' + historyState.total)
+      : 'Aucune licence.';
+    document.getElementById('history-prev').disabled = historyState.offset <= 0;
+    document.getElementById('history-next').disabled = to >= historyState.total;
+  } catch (e) {
+    historyBody.innerHTML = '<tr><td colspan="9" class="hint" style="padding:14px 0;">—</td></tr>';
+    showError('history-error', e.message);
+    log('Échec de chargement de l\'historique : ' + e.message, false);
+  }
+}
+
+document.getElementById('history-refresh').addEventListener('click', function(){ historyState.offset = 0; fetchHistory(); });
+document.getElementById('history-status').addEventListener('change', function(){
+  historyState.status = this.value; historyState.offset = 0; fetchHistory();
+});
+document.getElementById('history-search').addEventListener('input', function(){
+  var v = this.value.trim();
+  clearTimeout(historySearchTimer);
+  historySearchTimer = setTimeout(function(){
+    historyState.search = v; historyState.offset = 0; fetchHistory();
+  }, 350);
+});
+document.getElementById('history-prev').addEventListener('click', function(){
+  historyState.offset = Math.max(0, historyState.offset - historyState.limit);
+  fetchHistory();
+});
+document.getElementById('history-next').addEventListener('click', function(){
+  if (historyState.offset + historyState.limit < historyState.total) {
+    historyState.offset += historyState.limit;
     fetchHistory();
-  });
-  document.getElementById('history-next').addEventListener('click', function(){
-    if (historyState.offset + historyState.limit < historyState.total) {
-      historyState.offset += historyState.limit;
-      fetchHistory();
-    }
-  });
+  }
+});
 
 })();
 </script>
