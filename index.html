@@ -1,63 +1,63 @@
 <!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>OptiPC License Desk</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
 :root{
-  --ink:#101423;
-  --ink-soft:#4b5468;
-  --surface-0:#f4f5f9;
+  --ink:#1f2937;
+  --ink-soft:#6b7280;
+  --surface-0:#f6f4fa;
   --surface-1:#ffffff;
-  --surface-2:#eceff5;
-  --border:#dde1ea;
-  --accent:#0e7c86;
+  --surface-2:#f1ecf9;
+  --border:#e3ddf0;
+  --accent:#f07800;
   --accent-ink:#ffffff;
-  --accent-soft:#e3f3f2;
+  --accent-soft:#fdeedd;
   --good:#1e8e5a;
   --good-soft:#e5f6ec;
   --warn:#a8660f;
   --warn-soft:#fbf0dd;
   --danger:#c0392b;
   --danger-soft:#fbeae8;
-  --focus:#0e7c86;
-  --shadow:0 1px 2px rgba(16,20,35,.06), 0 8px 24px -12px rgba(16,20,35,.18);
+  --focus:#f07800;
+  --shadow:0 1px 2px rgba(14,1,29,.06), 0 8px 24px -12px rgba(14,1,29,.18);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --ink:#e7ecf5;
-    --ink-soft:#9aa4bb;
-    --surface-0:#0e1220;
-    --surface-1:#161b2c;
-    --surface-2:#1d2337;
-    --border:#2a3049;
-    --accent:#57dbe0;
-    --accent-ink:#052226;
-    --accent-soft:#132e30;
+    --ink:#efe9f7;
+    --ink-soft:#a99cc0;
+    --surface-0:#0e011d;
+    --surface-1:#1a0f2e;
+    --surface-2:#241638;
+    --border:#3a2a52;
+    --accent:#f0912e;
+    --accent-ink:#2a1400;
+    --accent-soft:#3a2410;
     --good:#4ade80;
     --good-soft:#123321;
     --warn:#fbbf24;
     --warn-soft:#3a2c0c;
     --danger:#f87171;
     --danger-soft:#3a1614;
-    --focus:#57dbe0;
+    --focus:#f0912e;
     --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 30px -14px rgba(0,0,0,.6);
   }
 }
 :root[data-theme="dark"]{
-  --ink:#e7ecf5;
-  --ink-soft:#9aa4bb;
-  --surface-0:#0e1220;
-  --surface-1:#161b2c;
-  --surface-2:#1d2337;
-  --border:#2a3049;
-  --accent:#57dbe0;
-  --accent-ink:#052226;
-  --accent-soft:#132e30;
+  --ink:#efe9f7;
+  --ink-soft:#a99cc0;
+  --surface-0:#0e011d;
+  --surface-1:#1a0f2e;
+  --surface-2:#241638;
+  --border:#3a2a52;
+  --accent:#f0912e;
+  --accent-ink:#2a1400;
+  --accent-soft:#3a2410;
   --good:#4ade80;
   --good-soft:#123321;
   --warn:#fbbf24;
   --warn-soft:#3a2c0c;
   --danger:#f87171;
   --danger-soft:#3a1614;
-  --focus:#57dbe0;
+  --focus:#f0912e;
   --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 30px -14px rgba(0,0,0,.6);
 }
 
@@ -66,7 +66,7 @@ body{
   margin:0;
   background:var(--surface-0);
   color:var(--ink);
-  font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  font-family:"Inter",system-ui,-apple-system,sans-serif;
   padding-inline:20px;
   padding-block:28px 60px;
 }
@@ -211,7 +211,27 @@ footer a{color:var(--accent);}
   .connection-row{flex-direction:column;align-items:stretch;}
   .lic-head{flex-direction:column;align-items:flex-start;}
 }
-</style></head><body>
+
+.st-topbar{background:radial-gradient(ellipse 140% 160% at 50% -60%, #3b1670 0%, #2a0c52 45%, #0e011d 100%);border-bottom:3px solid transparent;border-image:linear-gradient(90deg,#f07800,#ff9d3c 45%,#7a2ce0) 1;color:#fff;margin:-28px -20px 24px;padding:14px 24px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.st-topbar .st-brand{display:flex;align-items:center;gap:12px;font-family:"Inter",system-ui,sans-serif;
+  font-weight:800;font-size:15px;letter-spacing:0.18em;text-transform:uppercase;color:#fff;text-decoration:none;}
+.st-topbar .st-brand img{height:42px;width:auto;display:block;filter:drop-shadow(0 3px 8px rgba(240,120,0,.35));}
+.st-topbar .st-brand .accent{color:#f07800;}
+.st-topbar .st-brand .st-sub{font-weight:500;font-size:11.5px;letter-spacing:0.08em;color:#cfc6e0;margin-left:8px;}
+.st-topbar nav{display:flex;gap:18px;align-items:center;}
+.st-topbar nav a{color:#cfc6e0;text-decoration:none;font-size:13px;font-family:"Inter",sans-serif;}
+.st-topbar nav a:hover{color:#fff;text-decoration:underline;}
+</style></head><body><div class="st-topbar">
+  <a class="st-brand" href="https://secureetech-facturation-production.up.railway.app/">
+    <img src="https://secureetech.com/wp-content/uploads/2026/03/Logo-stylise-avec-ailes-et-bouclier__1_-removebg-preview-1.webp" alt="SecureeTech">
+    <span>Securee<span class="accent">Tech</span><span class="st-sub">Licences OptiPC</span></span>
+  </a>
+  <nav>
+    <a href="https://secureetech-facturation-production.up.railway.app/paiements">Facturation &amp; paiements</a>
+    <a href="https://vigilance-api-production.up.railway.app/" target="_blank" rel="noopener">Vigilance</a>
+  </nav>
+</div>
 
 <div class="wrap">
 
@@ -424,7 +444,6 @@ footer a{color:var(--accent);}
 <footer>OptiPC License Desk · appelle directement <span class="mono" id="footer-url">api.secureetech.com</span></footer>
 
 </div>
-
 <script>
 (function(){
 "use strict";
@@ -439,13 +458,12 @@ var els = {
   footerUrl: document.getElementById('footer-url'),
 };
 
-// ---- persistence (this browser only; never sent anywhere but the API above) ----
 try {
   var savedUrl = localStorage.getItem('opd_api_url');
   var savedToken = localStorage.getItem('opd_admin_token');
   if (savedUrl) els.apiUrl.value = savedUrl;
   if (savedToken) { els.token.value = savedToken; els.remember.checked = true; }
-} catch (e) { /* stockage indisponible : on continue sans */ }
+} catch (e) { }
 
 function persist(){
   try {
@@ -456,7 +474,7 @@ function persist(){
       localStorage.removeItem('opd_api_url');
       localStorage.removeItem('opd_admin_token');
     }
-  } catch (e) { /* pas grave */ }
+  } catch (e) { }
 }
 els.remember.addEventListener('change', persist);
 els.apiUrl.addEventListener('change', function(){
@@ -498,7 +516,6 @@ function escapeHtml(s){
   });
 }
 
-// Jours restants avant la fin de periode payee (peut etre negatif si expiree).
 function daysRemaining(endIso){
   if (!endIso) return null;
   var end = new Date(endIso).getTime();
@@ -519,8 +536,6 @@ function remainingColor(endIso){
   if (d <= 14) return 'var(--warn)';
   return 'var(--good)';
 }
-// Date courte (jj/mm/aa) pour les colonnes serrees du tableau ; la date
-// complete reste disponible via l'attribut title au survol.
 function shortDate(iso){
   if (!iso) return '—';
   var d = new Date(iso);
@@ -533,9 +548,6 @@ function fullDate(iso){
   if (isNaN(d.getTime())) return '';
   return d.toLocaleDateString('fr-FR', {day:'numeric', month:'long', year:'numeric'});
 }
-// Fusionne "fin de periode" + "temps restant" dans une seule cellule
-// compacte : la date complete et le detail apparaissent au survol (title),
-// ce qui liberait la place necessaire pour la cle complete et le telephone.
 function periodCellHtml(endIso){
   var short = shortDate(endIso);
   var full = fullDate(endIso);
@@ -546,9 +558,6 @@ function periodCellHtml(endIso){
     '<span style="color:' + color + ';font-weight:600;" title="' + escapeHtml(title) + '">(' + escapeHtml(remaining) + ')</span>';
 }
 
-// Affiche la cle complete quand le serveur peut la redonner (LICENSE_ENC_KEY
-// configure + licence emise apres cette mise a jour), avec un bouton copier ;
-// sinon retombe sur le prefixe, avec une note expliquant pourquoi.
 var keyCopyN = 0;
 function keyCellHtml(lic){
   if (lic.key_full) {
@@ -571,8 +580,6 @@ function wireKeyCopyButtons(root){
   });
 }
 
-// ---- revocation / liberation, partagees entre les formulaires et les
-// boutons places directement sur une ligne d'historique ou de recherche ----
 async function revokeLicense(target, label){
   if (!confirm('Révoquer définitivement la licence de ' + label + ' ?\nLe client ne pourra plus l\'utiliser.')) return false;
   await api('/v1/admin/revoke', {method:'POST', body: target});
@@ -601,7 +608,7 @@ async function api(path, opts){
     throw new Error('Impossible de joindre ' + url + ' — vérifie l\'URL de l\'API et ta connexion.');
   }
   var data = null;
-  try { data = await res.json(); } catch (e) { /* pas de corps JSON */ }
+  try { data = await res.json(); } catch (e) { }
   if (!res.ok) {
     var msg = friendlyError(res.status, data);
     throw new Error(msg);
@@ -619,7 +626,6 @@ function friendlyError(status, data){
   return (data && (data.message || data.error)) || ('Erreur ' + status);
 }
 
-// ---- test connection ----
 els.btnTest.addEventListener('click', async function(){
   setPill('idle', 'test en cours…');
   try {
@@ -632,7 +638,6 @@ els.btnTest.addEventListener('click', async function(){
   }
 });
 
-// ---- tabs ----
 var tabs = document.querySelectorAll('nav.tabs button');
 tabs.forEach(function(btn){
   btn.addEventListener('click', function(){
@@ -653,7 +658,6 @@ function hideError(id){
   document.getElementById(id).classList.remove('show');
 }
 
-// ---- issue ----
 document.getElementById('form-issue').addEventListener('submit', async function(ev){
   ev.preventDefault();
   hideError('issue-error');
@@ -693,7 +697,6 @@ document.getElementById('issue-copy').addEventListener('click', function(){
   });
 });
 
-// ---- lookup ----
 var lookupLabel = document.getElementById('lookup-value-label');
 var lookupInput = document.getElementById('lookup-value');
 document.querySelectorAll('input[name="lookup-mode"]').forEach(function(r){
@@ -773,7 +776,6 @@ document.getElementById('form-lookup').addEventListener('submit', async function
   }
 });
 
-// ---- revoke ----
 document.getElementById('form-revoke').addEventListener('submit', async function(ev){
   ev.preventDefault();
   hideError('revoke-error');
@@ -796,7 +798,6 @@ document.getElementById('form-revoke').addEventListener('submit', async function
   }
 });
 
-// ---- release seats ----
 document.getElementById('form-release').addEventListener('submit', async function(ev){
   ev.preventDefault();
   hideError('release-error');
@@ -818,7 +819,6 @@ document.getElementById('form-release').addEventListener('submit', async functio
   }
 });
 
-// ---- history (toutes les licences) ----
 var historyState = { loaded:false, limit:50, offset:0, total:0, status:'all', search:'' };
 var historyBody = document.getElementById('history-body');
 var historySearchTimer = null;
